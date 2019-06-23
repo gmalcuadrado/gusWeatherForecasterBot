@@ -28,26 +28,26 @@ def webhook(): # method app.route decorators create
     return r
 
 def makeResponse(req):
+    # Obtaining parameters from Dialogflow request
     result = req.get("result")
     parameters = result.get("parameters")
     city = parameters.get("geo-city")
     date = parameters.get("date")
-    r=requests.get('http://api.openweathermap.org/data/2.5/forecast?q='+city+'&appid=35918c9922e8cac62623e7a20694eecb')
-    print('Print r variable with Open Weather Map response:')
-    print(json.dumps(r, indent=4))
 
-
+    # Call to Open Weather API and get response
+    #r=requests.get('http://api.openweathermap.org/data/2.5/forecast?q='+city+'&appid=35918c9922e8cac62623e7a20694eecb') #Test1
+    r=requests.get('https://api.openweathermap.org/data/2.5/forecast?q='+city+',us&appid=35918c9922e8cac62623e7a20694eecb') #Test2
     json_object = r.json()
     weather=json_object['list']
     for i in len(weather):
         if date in weather[i]['dt_txt']:
             condition= weather[i]['weather'][0]['description']
             break
-    speech = "The forecast for"+city+"for "+date+" is "+condition
+    speech = "The forecast for"+city+"for "+date+" is "+condition # generate speech responses for my Dialogflow agent
     return {
     "speech": speech,
     "displayText": speech,
-    "source": "apiai-weather-webhook"
+    "source": "apiai-weather-webhook"  # ?????
     }
 
 if __name__ == '__main__':
