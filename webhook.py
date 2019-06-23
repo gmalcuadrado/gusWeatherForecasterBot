@@ -1,8 +1,8 @@
-import json
-import os
+import json # Parses JSN into a Python dictionary or list. 
+import os 
 import requests
 
-print('Test!...sddsss.')
+# Flask is a micro web framework written in Python. It is classified as a microframework because it does not require particular tools or libraries. 
 from flask import Flask
 from flask import request
 from flask import make_response
@@ -10,7 +10,7 @@ from flask import make_response
 # Flask app should start in global layout
 app = Flask(__name__)
 
-@app.route('/webhook', methods=['POST'])
+@app.route('/webhook', methods=['POST']) # A decorator (@ symbol) that tells Flask should trigger our function. By default, Flack route responds to GET requests. This can be altered by providing methods argument to route() decorator.
 def webhook():
     req = request.get_json(silent=True, force=True)
     print(json.dumps(req, indent=4))
