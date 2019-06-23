@@ -10,17 +10,21 @@ from flask import make_response
 # Flask app should start in global layout
 app = Flask(__name__)
 
-@app.route('/webhook', methods=['POST']) # A decorator (@ symbol) that tells Flask should trigger our function. By default, Flack route responds to GET requests. This can be altered by providing methods argument to route() decorator.
-def webhook():
+@app.route('/webhook', methods=['POST']) # A decorator (@ symbol) that tells Flask should trigger our function, instead of just running the body of our function directly. By default, Flack route responds to GET requests. This can be altered by providing methods argument to route() decorator.
+def webhook(): # method app.route decorators create
+
+    # Parses the incoming JSON request data and print
     req = request.get_json(silent=True, force=True)
+    print('Next printing the incoming JSON')
     print(json.dumps(req, indent=4))
     
-    res = makeResponse(req)
-    
+    # Next, we have to (1) extract the parameters needed from the incoming request -> (2) query the Open Weather API ->
+    # -> (3) construct the response -> (4) Send response to Dialogflow
+    res = makeResponse(req)    
     res = json.dumps(res, indent=4)
-    # print(res)
-    r = make_response(res)
-    r.headers['Content-Type'] = 'application/json'
+
+    r = make_response(res) # Setup the response in the right format for our Webhook response in the format that Dialogflow understand
+    r.headers['Content-Type'] = 'application/json' # Content type required by the Dialogflow end
     return r
 
 def makeResponse(req):
@@ -29,6 +33,9 @@ def makeResponse(req):
     city = parameters.get("geo-city")
     date = parameters.get("date")
     r=requests.get('http://api.openweathermap.org/data/2.5/forecast?q='+city+'&appid=35918c9922e8cac62623e7a20694eecb')
+    print"printing response R to API Open Weather Map:", r
+
+
     json_object = r.json()
     weather=json_object['list']
     for i in len(weather):
