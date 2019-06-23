@@ -29,12 +29,13 @@ def webhook(): # method app.route decorators create
 
 def makeResponse(req):
     # Obtaining parameters from Dialogflow request
+    print('makeResponse function')
     result = req.get("result")
     parameters = result.get("parameters")
     city = parameters.get("geo-city")
     date = parameters.get("date")
-    print('city=', city)
-    print('date=', date)
+    print('city=', city) # For debugging
+    print('date=', date) # For debugging
 
     # Call to Open Weather API and get response
     #r=requests.get('http://api.openweathermap.org/data/2.5/forecast?q='+city+'&appid=35918c9922e8cac62623e7a20694eecb') #Test1
