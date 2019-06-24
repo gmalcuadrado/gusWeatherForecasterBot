@@ -2,7 +2,7 @@ import json # Parses JSN into a Python dictionary or list.
 import os 
 import requests
 
-# Flask is a micro web framework written in Python. It is classified as a microframework because it does not require particular tools or libraries. 
+# Flask is a lightweight Python framework for web applications that provides the basics for URL routing and page rendering. 
 from flask import Flask
 from flask import request
 from flask import make_response
@@ -30,7 +30,7 @@ def webhook(): # method app.route decorators create
 def makeResponse(req):
     # Obtaining parameters from Dialogflow request
     print('makeResponse function')
-    result = req.get("result")
+    result = req.get("queryResult")
     parameters = result.get("parameters")
     city = parameters.get("geo-city")
     date = parameters.get("date")
