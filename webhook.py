@@ -34,15 +34,15 @@ def makeResponse(req):
     parameters = result.get("parameters")
     city = parameters.get("geo-city")
     date = parameters.get("date")
-    print('city=', city) # For debugging
-    print('date=', date) # For debugging
+    print('printing city=', city) # For debugging
+    print('printing date=', date) # For debugging
 
     # Call to Open Weather API and get response
     #r=requests.get('http://api.openweathermap.org/data/2.5/forecast?q='+city+'&appid=35918c9922e8cac62623e7a20694eecb') #Test1
     r=requests.get('https://api.openweathermap.org/data/2.5/forecast?q='+city+',us&appid=35918c9922e8cac62623e7a20694eecb') #Test2
     json_object = r.json()
     weather=json_object['list']
-    for i in len(weather):
+    for i in range(0,30):#len(weather):
         if date in weather[i]['dt_txt']:
             condition= weather[i]['weather'][0]['description']
             break
