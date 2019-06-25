@@ -27,6 +27,9 @@ def webhook(): # method app.route decorators create
     r.headers['Content-Type'] = 'application/json' # Content type required by the Dialogflow end
     return r
 
+    print ('printing return') # For debugging
+    print(r) # For debugging
+
 def makeResponse(req):
     # Obtaining parameters from Dialogflow request
     print('makeResponse function')
@@ -55,11 +58,11 @@ def makeResponse(req):
     for i in range(0,30): # It should be len(weather):
         if dateString in weather[i]['dt_txt']:
             condition= weather[i]['weather'][0]['description']
-            print ('printing condition', condition) # Debugging
+            print ('printing condition', condition) # For debugging
             break
     speech = "The forecast for "+city+" for "+date+" is "+condition # generate speech responses for my Dialogflow agent
-    print ('printing the speech') # Debugging
-    print (speech) # Debugging
+    print ('printing the speech') # For debugging
+    print (speech) # For debugging
     
     
     return {
