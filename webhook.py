@@ -15,30 +15,19 @@ def webhook(): # method app.route decorators create
 
     # Parses the incoming JSON request data and print
     req = request.get_json(silent=True, force=True)
-    print('Next printing the incoming JSON')
-    print(json.dumps(req, indent=4))
-     
-    # Next, we have to (1) extract the parameters needed from the incoming request -> (2) query the Open Weather API ->
-    # -> (3) construct the response -> (4) Send response to Dialogflow
-    #res = makeResponse(req)    
-    #res = json.dumps(res, indent=4)
-
-    #r = make_response(res) # Setup the response in the right format for our Webhook response in the format that Dialogflow understand
-    #r.headers['Content-Type'] = 'application/json' # Content type required by the Dialogflow end
+    # print('Next printing the incoming JSON') # For debugging
+    # print(json.dumps(req, indent=4)) # For debugging
  
     return make_response(jsonify(makeResponse(req))) # Debugging, return sample from https://www.pragnakalp.com/dialogflow-fulfillment-webhook-tutorial/
-
-    #return r
-
 
 
 def makeResponse(req):
     # Obtaining parameters from Dialogflow request
-    print('makeResponse function')
+    
     result = req.get("queryResult")
     parameters = result.get("parameters")
-    city = parameters.get("geo-city")
-    date = parameters.get("date")
+    #city = parameters.get("geo-city") # For debugging
+    #date = parameters.get("date") # For debugging
     
     # Format Dialogflow date variable to do comparison with OpenWeatherMap JSON date format
     dateString = str(date)  
@@ -50,11 +39,10 @@ def makeResponse(req):
     print('printing date=', date) # For debugging
 
     # Call to Open Weather API and get response
-    #r=requests.get('http://api.openweathermap.org/data/2.5/forecast?q='+city+'&appid=35918c9922e8cac62623e7a20694eecb') #Test1
     r=requests.get('https://api.openweathermap.org/data/2.5/forecast?q='+city+',us&appid=35918c9922e8cac62623e7a20694eecb') #Test2
     json_object = r.json()
-    print ('printing json openweathermap object') # Debugging
-    print (json_object) # Debugging
+    # print ('printing json openweathermap object') # Debugging
+    # print (json_object) # Debugging
 
     weather=json_object['list']
     for i in range(0,30): # It should be len(weather):
@@ -67,15 +55,6 @@ def makeResponse(req):
     print (speech) # For debugging
     
     return {'fulfillmentText': speech}
-
-    '''
-    return {
-    "speech": speech,
-    "displayText": speech,
-    "source": "apiai-weather-webhook"
-    }
-    '''
-
 
 
 if __name__ == '__main__':
