@@ -34,6 +34,13 @@ def makeResponse(req):
     parameters = result.get("parameters")
     city = parameters.get("geo-city")
     date = parameters.get("date")
+    
+    # Format Dialogflow date variable to do comparison with OpenWeatherMap JSON date format
+    dateString = str(date)  
+    dateString = dateString.replace("T", " ")
+    dateString = dateString.split("+")[0]
+
+
     print('printing city=', city) # For debugging
     print('printing date=', date) # For debugging
 
@@ -45,8 +52,8 @@ def makeResponse(req):
     print (json_object) # Debugging
 
     weather=json_object['list']
-    for i in range(0,30):#len(weather):
-        if date in weather[i]['dt_txt']:
+    for i in len(weather): #range(0,30):
+        if dateString in weather[i]['dt_txt']:
             condition= weather[i]['weather'][0]['description']
             print ('printing condition', condition) # Debugging
             break
