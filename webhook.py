@@ -26,9 +26,9 @@ def webhook(): # method app.route decorators create
     r = make_response(res) # Setup the response in the right format for our Webhook response in the format that Dialogflow understand
     r.headers['Content-Type'] = 'application/json' # Content type required by the Dialogflow end
  
-    print ('printing speech', r.speech)
-    print ('printing displayText', r.displayText)
-    print ('printing source', r.source)
+    #print ('printing speech', r.speech)
+    #print ('printing displayText', r.displayText)
+    #print ('printing source', r.source)
 
     return r
 
@@ -43,9 +43,9 @@ def makeResponse(req):
     date = parameters.get("date")
     
     # Format Dialogflow date variable to do comparison with OpenWeatherMap JSON date format
-    dateString = str(date)  
-    dateString = dateString.replace("T", " ")
-    dateString = dateString.split("+")[0]
+    #dateString = str(date)  
+    #dateString = dateString.replace("T", " ")
+    #dateString = dateString.split("+")[0]
 
 
     print('printing city=', city) # For debugging
@@ -74,6 +74,10 @@ def makeResponse(req):
     "displayText": speech,
     "source": "apiai-weather-webhook"  # ?????
     }
+
+    print ('printing function result', makeResponse(req))
+
+
 
 if __name__ == '__main__':
     port = int(os.getenv('PORT', 5000))
