@@ -10,7 +10,7 @@ from flask import make_response
 # Flask app should start in global layout
 app = Flask(__name__)
 
-@app.route('/webhook', methods=['POST']) # A decorator (@ symbol) that tells Flask should trigger our function, instead of just running the body of our function directly. By default, Flack route responds to GET requests. This can be altered by providing methods argument to route() decorator.
+@app.route('/webhook', methods=['GET', 'POST']) # A decorator (@ symbol) that tells Flask should trigger our function, instead of just running the body of our function directly. By default, Flack route responds to GET requests. This can be altered by providing methods argument to route() decorator.
 def webhook(): # method app.route decorators create
 
     # Parses the incoming JSON request data and print
@@ -73,8 +73,8 @@ def makeResponse(req):
     
     return {
     "speech": speech,
-    "displayText": speech
-    #"source": "apiai-weather-webhook"  # ?????
+    "displayText": speech,
+    "source": "apiai-weather-webhook"  # ?????
     }
 
 
