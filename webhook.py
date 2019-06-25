@@ -45,10 +45,13 @@ def makeResponse(req):
     # print (json_object) # Debugging
 
     weather=json_object['list']
-    for i in weather['list']: #range(0,30): # It should be len(weather):
+    for i,q in weather: #range(0,30): # It should be len(weather):
         if dateString in weather[i]['dt_txt']:
             condition= weather[i]['weather'][0]['description']
             print ('printing condition', condition) # For debugging
+            
+            # Pending else if value is not found
+
             break
     speech = "The forecast for "+city+" for "+date+" is "+condition # generate speech responses for my Dialogflow agent
     
