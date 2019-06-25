@@ -73,7 +73,7 @@ def makeResponse(req):
     
     return {
     "speech": speech,
-    "displayText": speech,
+    "displayText": speech
     #"source": "apiai-weather-webhook"  # ?????
     }
 
