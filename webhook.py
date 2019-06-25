@@ -26,11 +26,6 @@ def webhook(): # method app.route decorators create
     r = make_response(res) # Setup the response in the right format for our Webhook response in the format that Dialogflow understand
     r.headers['Content-Type'] = 'application/json' # Content type required by the Dialogflow end
  
-    print ('printing speech', r.speech)
-    #print ('printing displayText', r.displayText)
-    #print ('printing source', r.source)
-
-    
 
     return r
 
@@ -74,7 +69,7 @@ def makeResponse(req):
     return {
     "speech": speech,
     "displayText": speech,
-    "source": "apiai-weather-webhook"  # ?????
+    "source": "apiai-weather-webhook"
     }
 
 
