@@ -20,11 +20,11 @@ def webhook(): # method app.route decorators create
     
     # Next, we have to (1) extract the parameters needed from the incoming request -> (2) query the Open Weather API ->
     # -> (3) construct the response -> (4) Send response to Dialogflow
-    res = makeResponse(req)    
-    res = json.dumps(res, indent=4)
+    #res = makeResponse(req)    
+    #res = json.dumps(res, indent=4)
 
-    r = make_response(res) # Setup the response in the right format for our Webhook response in the format that Dialogflow understand
-    r.headers['Content-Type'] = 'application/json' # Content type required by the Dialogflow end
+    #r = make_response(res) # Setup the response in the right format for our Webhook response in the format that Dialogflow understand
+    #r.headers['Content-Type'] = 'application/json' # Content type required by the Dialogflow end
  
     return make_response(jsonify(makeResponse(req))) # Debugging, return sample from https://www.pragnakalp.com/dialogflow-fulfillment-webhook-tutorial/
 
