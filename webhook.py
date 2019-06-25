@@ -66,8 +66,7 @@ def makeResponse(req):
     print ('printing the speech') # For debugging
     print (speech) # For debugging
     
-     return {'fulfillmentText': speech}
-
+    return {'fulfillmentText': speech}
 
     '''
     return {
