@@ -50,7 +50,7 @@ def makeResponse(req):
             condition= weather[i]['weather'][0]['description']
             print ('printing condition', condition) # For debugging
             
-            # Pending else if value is not found
+            # Pending else if value is not found, print back on Dialogflow
 
             break
     speech = "The forecast for "+city+" for "+date+" is "+condition # generate speech responses for my Dialogflow agent
