@@ -25,11 +25,11 @@ def webhook(): # method app.route decorators create
 
     r = make_response(res) # Setup the response in the right format for our Webhook response in the format that Dialogflow understand
     r.headers['Content-Type'] = 'application/json' # Content type required by the Dialogflow end
-    
-    print ('printing return') # For debugging
-    rString = str(r) # For debugging
-    print(r) # For debugging
-    
+ 
+    print ('printing speech', r.speech)
+    print ('printing displayText', r.displayText)
+    print ('printing source', r.source)
+
     return r
 
 
