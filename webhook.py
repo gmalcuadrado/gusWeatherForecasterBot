@@ -17,7 +17,7 @@ def webhook(): # method app.route decorators create
     req = request.get_json(silent=True, force=True)
     print('Next printing the incoming JSON')
     print(json.dumps(req, indent=4))
-    
+     
     # Next, we have to (1) extract the parameters needed from the incoming request -> (2) query the Open Weather API ->
     # -> (3) construct the response -> (4) Send response to Dialogflow
     #res = makeResponse(req)    
