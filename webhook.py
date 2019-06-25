@@ -45,7 +45,7 @@ def makeResponse(req):
     # print (json_object) # Debugging
 
     weather=json_object['list']
-    for i,q in weather: #range(0,30): # It should be len(weather):
+    for i in range(0,30): # It should be something like len(weather):
         if dateString in weather[i]['dt_txt']:
             condition= weather[i]['weather'][0]['description']
             print ('printing condition', condition) # For debugging
