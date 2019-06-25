@@ -53,7 +53,7 @@ def makeResponse(req):
             # Pending else if value is not found, print back on Dialogflow
 
             break
-    speech = "The forecast for "+city+" for "+date+" is "+condition # generate speech responses for my Dialogflow agent
+    speech = "The forecast for "+city+" for "+dateString+" is "+condition # generate speech responses for my Dialogflow agent
     
     # print ('printing the speech') # For debugging
     # print (speech) # For debugging
