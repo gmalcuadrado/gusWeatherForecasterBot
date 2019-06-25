@@ -50,6 +50,10 @@ def makeResponse(req):
             condition= weather[i]['weather'][0]['description']
             break
     speech = "The forecast for"+city+"for "+date+" is "+condition # generate speech responses for my Dialogflow agent
+    print ('printing the speech')
+    print (speech)
+    
+    
     return {
     "speech": speech,
     "displayText": speech,
