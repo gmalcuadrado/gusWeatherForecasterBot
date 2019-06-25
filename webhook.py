@@ -3,7 +3,7 @@ import os
 import requests
 
 # Flask is a lightweight Python framework for web applications that provides the basics for URL routing and page rendering. 
-from flask import Flask
+from flask import Flask, jsonify
 from flask import request
 from flask import make_response
 
@@ -26,8 +26,9 @@ def webhook(): # method app.route decorators create
     r = make_response(res) # Setup the response in the right format for our Webhook response in the format that Dialogflow understand
     r.headers['Content-Type'] = 'application/json' # Content type required by the Dialogflow end
  
+    return make_response(jsonify(r()))
 
-    return r
+    #return r
 
 
 
