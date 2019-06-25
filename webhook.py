@@ -39,20 +39,21 @@ def makeResponse(req):
     print('printing date=', date) # For debugging
 
     # Call to Open Weather API and get response
-    r=requests.get('https://api.openweathermap.org/data/2.5/forecast?q='+city+',us&appid=35918c9922e8cac62623e7a20694eecb') #Test2
+    r=requests.get('https://api.openweathermap.org/data/2.5/forecast?q='+city+',us&appid=35918c9922e8cac62623e7a20694eecb')
     json_object = r.json()
     # print ('printing json openweathermap object') # Debugging
     # print (json_object) # Debugging
 
     weather=json_object['list']
-    for i in range(0,30): # It should be len(weather):
+    for i in weather: #range(0,30): # It should be len(weather):
         if dateString in weather[i]['dt_txt']:
             condition= weather[i]['weather'][0]['description']
             print ('printing condition', condition) # For debugging
             break
     speech = "The forecast for "+city+" for "+date+" is "+condition # generate speech responses for my Dialogflow agent
-    print ('printing the speech') # For debugging
-    print (speech) # For debugging
+    
+    # print ('printing the speech') # For debugging
+    # print (speech) # For debugging
     
     return {'fulfillmentText': speech}
 
