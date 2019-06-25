@@ -43,9 +43,9 @@ def makeResponse(req):
     date = parameters.get("date")
     
     # Format Dialogflow date variable to do comparison with OpenWeatherMap JSON date format
-    #dateString = str(date)  
-    #dateString = dateString.replace("T", " ")
-    #dateString = dateString.split("+")[0]
+    dateString = str(date)  
+    dateString = dateString.replace("T", " ")
+    dateString = dateString.split("+")[0]
 
 
     print('printing city=', city) # For debugging
