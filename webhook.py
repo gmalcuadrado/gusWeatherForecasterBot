@@ -26,8 +26,8 @@ def makeResponse(req):
     
     result = req.get("queryResult")
     parameters = result.get("parameters")
-    #city = parameters.get("geo-city") # For debugging
-    #date = parameters.get("date") # For debugging
+    city = parameters.get("geo-city") # For debugging
+    date = parameters.get("date") # For debugging
     
     # Format Dialogflow date variable to do comparison with OpenWeatherMap JSON date format
     dateString = str(date)  
