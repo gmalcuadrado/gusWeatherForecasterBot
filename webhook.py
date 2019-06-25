@@ -41,7 +41,9 @@ def makeResponse(req):
     #r=requests.get('http://api.openweathermap.org/data/2.5/forecast?q='+city+'&appid=35918c9922e8cac62623e7a20694eecb') #Test1
     r=requests.get('https://api.openweathermap.org/data/2.5/forecast?q='+city+',us&appid=35918c9922e8cac62623e7a20694eecb') #Test2
     json_object = r.json()
-    print(json.dumps(r, indent=4))# For debugging purposes
+    print ('printing json openweathermap object')
+    print json_object
+
     weather=json_object['list']
     for i in range(0,30):#len(weather):
         if date in weather[i]['dt_txt']:
