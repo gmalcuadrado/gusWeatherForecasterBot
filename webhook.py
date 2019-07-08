@@ -18,16 +18,16 @@ def webhook(): # method app.route decorators create
     # print('Next printing the incoming JSON') # For debugging
     # print(json.dumps(req, indent=4)) # For debugging
  
-    return make_response(jsonify(makeResponse(req))) # Debugging, return sample from https://www.pragnakalp.com/dialogflow-fulfillment-webhook-tutorial/
+    return make_response(jsonify(makeWeatherResponse(req))) # Debugging, return sample from https://www.pragnakalp.com/dialogflow-fulfillment-webhook-tutorial/
 
 
-def makeResponse(req):
+def makeWeatherResponse(req):
     # Obtaining parameters from Dialogflow request
     
     result = req.get("queryResult")
     parameters = result.get("parameters")
-    city = parameters.get("geo-city") # For debugging
-    date = parameters.get("date") # For debugging
+    city = parameters.get("geo-city")
+    date = parameters.get("date")
     
     #print('printing city=', city) # For debugging
     #print('printing date=', date) # For debugging
@@ -64,7 +64,6 @@ def makeResponse(req):
         else:
             condition="City or date-time not found in WeatherMap"
 
-            # Pending else if value is not found, print back on Dialogflow
 
             
     speech = "The forecast for "+city+" at "+dateTimeFormated+" is "+condition # generate speech responses for my Dialogflow agent
