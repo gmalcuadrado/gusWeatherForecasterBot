@@ -27,6 +27,21 @@ def webhook(): # method app.route decorators create
         print("gsm Python function")
 
 
+
+def makeGsmResponse(req):
+    # GET RESPONSE PARAMETERS: STAFF NUMBER
+
+    # CONNECT TO S3 BUCKET AND GET DATAFRAME
+
+    # ITERATE BETWEEN DATAFRAME SEARCHING STAFF NUMBER
+
+    # PREPARE AND RETURN RESPONSE
+
+
+    speech = "The days  for "+city+" at "+dateTimeFormated+" is "+condition # generate speech responses for my Dialogflow agent
+    return {'fulfillmentText': speech}
+
+
 def makeWeatherResponse(req):
     # Obtaining parameters from Dialogflow request
     
