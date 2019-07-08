@@ -29,15 +29,15 @@ def makeResponse(req):
     city = parameters.get("geo-city") # For debugging
     date = parameters.get("date") # For debugging
     
-    # Format Dialogflow date variable to do comparison with OpenWeatherMap JSON date format
-    dateString = str(date)  
-    dateString = dateString.replace("T", " ")
-    dateString = dateString.split("+")[0]
-
-
     #print('printing city=', city) # For debugging
     #print('printing date=', date) # For debugging
-    print('printing date formatted=', dateString) # For debugging
+
+    # Format Dialogflow date variable to do comparison with OpenWeatherMap JSON date format
+    dateTimeFormated = str(date)  
+    dateTimeFormated = dateTimeFormated.replace("T", " ")
+    dateTimeFormated = dateTimeFormated.split("+")[0]
+
+    print('printing date time formatted as weathermap=', dateTimeFormated) # For debugging
 
     # Call to Open Weather API and get response
     r=requests.get('https://api.openweathermap.org/data/2.5/forecast?q='+city+',us&appid=35918c9922e8cac62623e7a20694eecb')
@@ -47,17 +47,19 @@ def makeResponse(req):
 
     weather=json_object['list']
     for i in range(0,30): # It should be something like len(weather):, not working
-        if dateString in weather[i]['dt_txt']:
+        if dateTimeFormated in weather[i]['dt_txt']:
             condition= weather[i]['weather'][0]['description']
             print ('printing condition', condition) # For debugging
             break
-        else:
+        # If the date time is not found in weathermap, provide a forecast based just on date.
+        # Found use case where forecast for today was offering a time which was not in JSON openweathermap response
+        else: 
             condition="CITY not found in WeatherMap"
 
             # Pending else if value is not found, print back on Dialogflow
 
             
-    speech = "The forecast for "+city+" at "+dateString+" is "+condition # generate speech responses for my Dialogflow agent
+    speech = "The forecast for "+city+" at "+dateTimeFormated+" is "+condition # generate speech responses for my Dialogflow agent
     
     # print ('printing the speech') # For debugging
     # print (speech) # For debugging
