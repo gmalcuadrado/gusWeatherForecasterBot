@@ -39,7 +39,7 @@ def makeResponse(req):
     justDate = dateTimeFormated.split("+")[0]
 
     print('printing date time formatted as weathermap=', dateTimeFormated) # For debugging
-    print('printing date time formatted as weathermap=', justDate) # For debugging
+    print('printing just date=', justDate) # For debugging
 
 
     # Call to Open Weather API and get response
@@ -56,8 +56,7 @@ def makeResponse(req):
             break
         # elif condition for date/time not found in weathermap, provide a forecast based just on date.
         # Found use case where forecast for today was offering a time which was not in JSON openweathermap response
-        elif:
-        if justDate in weather[i]['dt_txt']:
+        elif justDate in weather[i]['dt_txt']:
             condition= weather[i]['weather'][0]['description']
             print ('printing condition', condition) # For debugging
             break
