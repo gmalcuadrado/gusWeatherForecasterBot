@@ -41,8 +41,8 @@ def makeResponse(req):
     # Call to Open Weather API and get response
     r=requests.get('https://api.openweathermap.org/data/2.5/forecast?q='+city+',us&appid=35918c9922e8cac62623e7a20694eecb')
     json_object = r.json()
-    # print ('printing json openweathermap object') # Debugging
-    # print (json_object) # Debugging
+    print ('printing json openweathermap object') # Debugging
+    print (json_object) # Debugging
 
     weather=json_object['list']
     for i in range(0,30): # It should be something like len(weather):
