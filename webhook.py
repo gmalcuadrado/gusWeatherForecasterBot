@@ -36,8 +36,11 @@ def makeResponse(req):
     dateTimeFormated = str(date)  
     dateTimeFormated = dateTimeFormated.replace("T", " ")
     dateTimeFormated = dateTimeFormated.split("+")[0]
+    justDate = dateTimeFormated.split("+")[0]
 
     print('printing date time formatted as weathermap=', dateTimeFormated) # For debugging
+    print('printing date time formatted as weathermap=', justDate) # For debugging
+
 
     # Call to Open Weather API and get response
     r=requests.get('https://api.openweathermap.org/data/2.5/forecast?q='+city+',us&appid=35918c9922e8cac62623e7a20694eecb')
@@ -51,10 +54,16 @@ def makeResponse(req):
             condition= weather[i]['weather'][0]['description']
             print ('printing condition', condition) # For debugging
             break
-        # If the date time is not found in weathermap, provide a forecast based just on date.
+        # elif condition for date/time not found in weathermap, provide a forecast based just on date.
         # Found use case where forecast for today was offering a time which was not in JSON openweathermap response
-        else: 
-            condition="CITY not found in WeatherMap"
+        elif:
+        if justDate in weather[i]['dt_txt']:
+            condition= weather[i]['weather'][0]['description']
+            print ('printing condition', condition) # For debugging
+            break
+
+        else:
+            condition="City or date-time not found in WeatherMap"
 
             # Pending else if value is not found, print back on Dialogflow
 
