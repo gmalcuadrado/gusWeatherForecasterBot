@@ -37,6 +37,7 @@ def makeResponse(req):
 
     #print('printing city=', city) # For debugging
     #print('printing date=', date) # For debugging
+    print('printing date formatted=', dateString) # For debugging
 
     # Call to Open Weather API and get response
     r=requests.get('https://api.openweathermap.org/data/2.5/forecast?q='+city+',us&appid=35918c9922e8cac62623e7a20694eecb')
