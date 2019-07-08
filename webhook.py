@@ -15,10 +15,17 @@ def webhook(): # method app.route decorators create
 
     # Parses the incoming JSON request data and print
     req = request.get_json(silent=True, force=True)
-    # print('Next printing the incoming JSON') # For debugging
+    # print('Next printing the incoming JSON=') # For debugging
     # print(json.dumps(req, indent=4)) # For debugging
  
-    return make_response(jsonify(makeWeatherResponse(req))) # Debugging, return sample from https://www.pragnakalp.com/dialogflow-fulfillment-webhook-tutorial/
+    result = req.get("queryResult") 
+    parameters = result.get("parameters")
+    
+    switch (result){
+        case 1:  parameters.get("geo-city");
+        return make_response(jsonify(makeWeatherResponse(req))) # Debugging, return sample from https://www.pragnakalp.com/dialogflow-fulfillment-webhook-tutorial/
+        break;
+    }
 
 
 def makeWeatherResponse(req):
