@@ -18,11 +18,11 @@ def webhook(): # method app.route decorators create
     # print('Next printing the incoming JSON=') # For debugging
     # print(json.dumps(req, indent=4)) # For debugging
  
-    result = req.get("queryResult") 
+    result = req.get("queryResult") # !!! Repeated req.get, solve this !!!
     parameters = result.get("parameters")
     
     switch (result){
-        case 1:  parameters.get("geo-city");
+        case 1:  (parameters.get("geo-city"));
             return make_response(jsonify(makeWeatherResponse(req))) # Debugging, return sample from https://www.pragnakalp.com/dialogflow-fulfillment-webhook-tutorial/
             break;
     }
