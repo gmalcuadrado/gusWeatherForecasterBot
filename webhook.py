@@ -42,7 +42,7 @@ def makeGsmResponse(req):
 
     # PREPARE AND RETURN RESPONSE
     
-    speech = " Number of days available for "+numberStaff+" are 42 " # generate speech responses for my Dialogflow agent
+    speech = " Number of days available for "+staffNumber+" are 42 " # generate speech responses for my Dialogflow agent
     return {'fulfillmentText': speech}
 
 
