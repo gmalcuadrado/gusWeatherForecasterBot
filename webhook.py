@@ -25,20 +25,24 @@ def webhook(): # method app.route decorators create
         return make_response(jsonify(makeWeatherResponse(req))) # Debugging, return sample from https://www.pragnakalp.com/dialogflow-fulfillment-webhook-tutorial/
     else:
         print("gsm Python function")
+        return make_response(jsonify(makeGsmResponse(req)))
 
 
 
 def makeGsmResponse(req):
     # GET RESPONSE PARAMETERS: STAFF NUMBER
 
+    result = req.get("queryResult")
+    parameters = result.get("parameters")
+    staffNumber = parameters.get("numberStaff")
+
     # CONNECT TO S3 BUCKET AND GET DATAFRAME
 
     # ITERATE BETWEEN DATAFRAME SEARCHING STAFF NUMBER
 
     # PREPARE AND RETURN RESPONSE
-
-
-    speech = "The days  for "+city+" at "+dateTimeFormated+" is "+condition # generate speech responses for my Dialogflow agent
+    
+    speech = " Number of days available for "+numberStaff+" are 42 " # generate speech responses for my Dialogflow agent
     return {'fulfillmentText': speech}
 
 
