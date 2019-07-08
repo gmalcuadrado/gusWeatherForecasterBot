@@ -23,8 +23,8 @@ def webhook(): # method app.route decorators create
     
     switch (result){
         case 1:  parameters.get("geo-city");
-        return make_response(jsonify(makeWeatherResponse(req))) # Debugging, return sample from https://www.pragnakalp.com/dialogflow-fulfillment-webhook-tutorial/
-        break;
+            return make_response(jsonify(makeWeatherResponse(req))) # Debugging, return sample from https://www.pragnakalp.com/dialogflow-fulfillment-webhook-tutorial/
+            break;
     }
 
 
