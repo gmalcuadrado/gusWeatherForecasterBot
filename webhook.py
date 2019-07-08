@@ -36,7 +36,7 @@ def makeResponse(req):
     dateTimeFormated = str(date)  
     dateTimeFormated = dateTimeFormated.replace("T", " ")
     dateTimeFormated = dateTimeFormated.split("+")[0]
-    justDate = dateTimeFormated.split("+")[0]
+    justDate = dateTimeFormated.split(" ")[0]
 
     print('printing date time formatted as weathermap=', dateTimeFormated) # For debugging
     print('printing just date=', justDate) # For debugging
