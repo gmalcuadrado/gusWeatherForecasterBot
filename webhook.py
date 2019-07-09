@@ -1,6 +1,8 @@
 import json # Parses JSN into a Python dictionary or list. 
 import os 
 import requests
+import boto3
+
 
 # Flask is a lightweight Python framework for web applications that provides the basics for URL routing and page rendering. 
 from flask import Flask, jsonify
@@ -37,6 +39,10 @@ def makeGsmResponse(req):
     staffNumber = parameters.get("numberStaff")
 
     # CONNECT TO S3 BUCKET AND GET DATAFRAME
+    
+    s3 = boto3.client('s3')
+    response = s3.list_buckets()
+    print(response)
 
     # ITERATE BETWEEN DATAFRAME SEARCHING STAFF NUMBER
 
