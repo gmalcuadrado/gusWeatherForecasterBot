@@ -37,6 +37,7 @@ def makeGsmResponse(req):
     result = req.get("queryResult")
     parameters = result.get("parameters")
     staffNumber = parameters.get("numberStaff")
+    print("printing staff number: ", staffNumber)
 
     # CONNECT TO S3 BUCKET AND GET DATAFRAME
     
