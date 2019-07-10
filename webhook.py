@@ -1,7 +1,6 @@
-import json # Parses JSN into a Python dictionary or list. 
-import os 
-# import requests
-# import boto3
+import json # Parses JSON into a Python dictionary or list. 
+import os, requests 
+import boto3 # Amazon Web Services (AWS) SDK for Python
 
 
 # Flask is a lightweight Python framework for web applications that provides the basics for URL routing and page rendering. 
@@ -18,7 +17,7 @@ def webhook(): # method app.route decorators create
     # print('Next printing the incoming JSON=') # For debugging
     # print(json.dumps(req, indent=4)) # For debugging
  
-    result = req.get("queryResult") # !!! TODO: Repeated req.get, solve this !!!
+    result = req.get("queryResult") # TODO: Repeated req.get, pending to solve this
     parameters = result.get("parameters")
     
     if parameters.get("geo-city"):
