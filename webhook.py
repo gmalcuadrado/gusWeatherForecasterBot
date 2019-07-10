@@ -1,7 +1,7 @@
 import json # Parses JSON into a Python dictionary or list. 
 import os
 import requests # 
-import boto3 # Amazon Web Services (AWS) SDK for Python
+import awscli, boto3 # Amazon Web Services (AWS) SDK for Python
 
 # Flask is a lightweight Python framework for web applications that provides the basics for URL routing and page rendering. 
 from flask import Flask, jsonify, request, make_response
@@ -14,8 +14,8 @@ def webhook(): # method app.route decorators create
 
     # Parses the incoming JSON request data and print
     req = request.get_json(silent=True, force=True)
-    print('Next printing the incoming JSON=') # For debugging
-    print(json.dumps(req, indent=4)) # For debugging
+    # print('Next printing the incoming JSON=') # For debugging
+    # print(json.dumps(req, indent=4)) # For debugging
  
     result = req.get("queryResult") # TODO: Repeated req.get, pending to solve this
     parameters = result.get("parameters")
@@ -58,8 +58,8 @@ def makeWeatherResponse(req):
     city = parameters.get("geo-city")
     date = parameters.get("date")
     
-    print('printing city=', city) # For debugging
-    print('printing date=', date) # For debugging
+    # print('printing city=', city) # For debugging
+    # print('printing date=', date) # For debugging
 
     # Format Dialogflow date variable to do comparison with OpenWeatherMap JSON date format
     dateTimeFormated = str(date)  
@@ -67,15 +67,15 @@ def makeWeatherResponse(req):
     dateTimeFormated = dateTimeFormated.split("+")[0]
     justDate = dateTimeFormated.split(" ")[0]
 
-    print('printing date time formatted as weathermap=', dateTimeFormated) # For debugging
-    print('printing just date=', justDate) # For debugging
+    # print('printing date time formatted as weathermap=', dateTimeFormated) # For debugging
+    # print('printing just date=', justDate) # For debugging
 
 
     # Call to Open Weather API and get response
     r=requests.get('https://api.openweathermap.org/data/2.5/forecast?q='+city+',us&appid=35918c9922e8cac62623e7a20694eecb')
     json_object = r.json()
-    print ('printing json openweathermap object') # Debugging
-    print (json_object) # Debugging
+    # print ('printing json openweathermap object') # Debugging
+    # print (json_object) # Debugging
 
     weather=json_object['list']
     for i in range(0,30): # It should be something like len(weather):, not working
