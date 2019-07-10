@@ -1,5 +1,5 @@
 import json # Parses JSON into a Python dictionary or list. 
-import os, requests
+import os, requests # 
 import boto3 # Amazon Web Services (AWS) SDK for Python
 
 # Flask is a lightweight Python framework for web applications that provides the basics for URL routing and page rendering. 
