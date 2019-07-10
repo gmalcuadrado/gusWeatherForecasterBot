@@ -1,5 +1,5 @@
 import json # Parses JSON into a Python dictionary or list. 
-import os, requests 
+import os, request 
 import boto3 # Amazon Web Services (AWS) SDK for Python
 
 
