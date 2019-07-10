@@ -54,7 +54,7 @@ def makeGsmResponse(req):
         'effectiveDate': ['31-10-2019','14-10-2019','14-05-2019','31-11-2019','17-12-2019','15-10-2019']
         }
 
-    df = DataFrame (gsmCsv,columns= ['gsmName', 'Surname', 'Name', 'StaffID', 'annualLeaveConsumed', 'annualLeavePending', 'effectiveDate])
+    df = DataFrame (gsmCsv,columns= ['gsmName', 'Surname', 'Name', 'StaffID', 'annualLeaveConsumed', 'annualLeavePending', 'effectiveDate'])
 
     print (df)
 
