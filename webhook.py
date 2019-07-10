@@ -82,20 +82,22 @@ def makeWeatherResponse(req):
         if dateTimeFormated in weather[i]['dt_txt']:
             condition= weather[i]['weather'][0]['description']
             print ('printing condition', condition) # For debugging
+             speech = "The forecast for "+city+" at "+dateTimeFormated+" is "+condition # generate speech responses for my Dialogflow agent
             break
         # elif condition for date/time not found in weathermap, provide a forecast based just on date.
         # Found use case where forecast for today was offering a time which was not in JSON openweathermap response
         elif justDate in weather[i]['dt_txt']:
             condition= weather[i]['weather'][0]['description']
             print ('printing condition', condition) # For debugging
+             speech = "The forecast for "+city+" at "+dateTimeFormated+" is "+condition # generate speech responses for my Dialogflow agent
             break
 
         else:
-            condition="City or date-time not found in WeatherMap"
+            speech="Sorry, city or date/time not found in WeatherMap"
 
 
             
-    speech = "The forecast for "+city+" at "+dateTimeFormated+" is "+condition # generate speech responses for my Dialogflow agent
+   
     
     # print ('printing the speech') # For debugging
     # print (speech) # For debugging
