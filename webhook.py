@@ -1,13 +1,11 @@
 import json # Parses JSN into a Python dictionary or list. 
 import os 
-import requests
-import boto3
+# import requests
+# import boto3
 
 
 # Flask is a lightweight Python framework for web applications that provides the basics for URL routing and page rendering. 
-from flask import Flask, jsonify
-from flask import request
-from flask import make_response
+from flask import Flask, jsonify, request, make_response
 
 # Flask app should start in global layout
 app = Flask(__name__)
