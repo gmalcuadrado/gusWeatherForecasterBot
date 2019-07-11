@@ -44,8 +44,7 @@ def makeGsmResponse(req):
     # response = s3.list_buckets()
     # print(response)
 
-    gsmCsv = {'gsmName': ['Honda Civic','Toyota Corolla','Ford Focus','Audi A4'],
-        'gsmName': ['ABELLA, Mr. Pablo','ABJELINA, Mr. Roy','ABOU-YOUSSEFF, Mr. Emad A.','Aguilar Rico, Mr. Enrique','Aleixandre, Mr. Carlos','Alfeo, Mr. Salvatore'],
+    gsmCsv = {'gsmName': ['ABELLA, Mr. Pablo','ABJELINA, Mr. Roy','ABOU-YOUSSEFF, Mr. Emad A.','Aguilar Rico, Mr. Enrique','Aleixandre, Mr. Carlos','Alfeo, Mr. Salvatore'],
         'surname': ['ABELLA','ABJELINA','ABOU-YOUSSEFF','Aguilar Rico','Aleixandre','Alfeo'],
         'name': ['Pablo','Roy','Emad','Enrique','Carlos','Salvatore'],
         'staffId': ['S206700','S206701','S206702','S206703','S206704','S206705'],
@@ -58,7 +57,7 @@ def makeGsmResponse(req):
 
     print (df)
 
-    # ITERATE BETWEEN DATAFRAME SEARCHING STAFF NUMBER
+    # ITERATE DATAFRAME SEARCHING STAFF NUMBER AND GET DAYS
 
     # PREPARE AND RETURN RESPONSE
     
