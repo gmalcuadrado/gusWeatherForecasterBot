@@ -40,10 +40,21 @@ def makeGsmResponse(req):
     # CONNECT TO S3 BUCKET AND GET DATAFRAME
     
     # boto3 import does not work, pending to solve.
+    bucket = "whochatbot"
+    file_name = "whogsm.csv"
+    
     s3 = boto3.client('s3') 
     response = s3.list_buckets()
-    print(response)
+    print("S3 bucket response: ", response)
 
+    # get object and file (key) from bucket
+    obj = s3.get_object(Bucket= bucket, Key= file_name) 
+
+    df = pd.read_csv(obj['Body']) # 'Body' is a key word
+
+    print(df)
+
+    '''
     gsmCsv = {'gsmName': ['ABELLA, Mr. Pablo','ABJELINA, Mr. Roy','ABOU-YOUSSEFF, Mr. Emad A.','Aguilar Rico, Mr. Enrique','Aleixandre, Mr. Carlos','Alfeo, Mr. Salvatore'],
         'surname': ['ABELLA','ABJELINA','ABOU-YOUSSEFF','Aguilar Rico','Aleixandre','Alfeo'],
         'name': ['Pablo','Roy','Emad','Enrique','Carlos','Salvatore'],
@@ -54,8 +65,11 @@ def makeGsmResponse(req):
         }
 
     df = DataFrame (gsmCsv,columns= ['gsmName', 'Surname', 'Name', 'StaffID', 'annualLeaveConsumed', 'annualLeavePending', 'effectiveDate'])
-
+    
     print (df)
+
+    '''
+
 
     # ITERATE DATAFRAME SEARCHING STAFF NUMBER AND GET DAYS
 
