@@ -93,16 +93,16 @@ def makeWeatherResponse(req):
     # print (json_object) # Debugging
 
     weather=json_object['list']
-    for i in range(0,30): # It should be something like len(weather):, not working
+    for i in len('weather') #range(0,30): # It should be something like len(weather):, not working
         if dateTimeFormated in weather[i]['dt_txt']:
             condition= weather[i]['weather'][0]['description']
-            print ('printing condition', condition) # For debugging
+            #print ('printing condition', condition) # For debugging
             break
         # elif condition for date/time not found in weathermap, provide a forecast based just on date.
         # Found use case where forecast for today was offering a time which was not in JSON openweathermap response
         elif justDate in weather[i]['dt_txt']:
             condition= weather[i]['weather'][0]['description']
-            print ('printing condition', condition) # For debugging
+            #print ('printing condition', condition) # For debugging
             break
 
         else:
