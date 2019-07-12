@@ -93,7 +93,7 @@ def makeWeatherResponse(req):
     # print (json_object) # Debugging
 
     weather=json_object['list']
-    for i in len('list') #range(0,30): # It should be something like len(weather):, not working
+    for i in range(0,30): # TODO: It should be something like len(weather):, not working
         if dateTimeFormated in weather[i]['dt_txt']:
             condition= weather[i]['weather'][0]['description']
             #print ('printing condition', condition) # For debugging
