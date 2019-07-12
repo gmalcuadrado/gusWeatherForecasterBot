@@ -83,7 +83,7 @@ def makeWeatherResponse(req):
     justDate = dateTimeFormated.split(" ")[0]
 
     # print('printing date time formatted as weathermap=', dateTimeFormated) # For debugging
-    # print('printing just date=', justDate) # For debugging
+    # print('printing just date=', justDate) # For debugging 
 
 
     # Call to Open Weather API and get response
