@@ -1,6 +1,7 @@
 import json # Parses JSON into a Python dictionary or list. 
 import os
 import requests
+import boto3
 from pandas import DataFrame
 # import boto3 # Amazon Web Services (AWS) SDK for Python. When I try to import it, ModuleNotFoundError: No module named 'boto3' and Python app does not work
 
