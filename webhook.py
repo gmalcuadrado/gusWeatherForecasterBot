@@ -54,12 +54,13 @@ def makeGsmResponse(req):
 
     print(df)
 
-    if (df.loc[df['StaffID'] == staffNumber]):
-        print("Staff number found! :)")
-    else:
-        print("Staff number not found :(")
+    result=df.loc[df['StaffID'] == staffNumber]
+
+    print("values of results is: ", result)
 
 
+
+    
     '''
     gsmCsv = {'gsmName': ['ABELLA, Mr. Pablo','ABJELINA, Mr. Roy','ABOU-YOUSSEFF, Mr. Emad A.','Aguilar Rico, Mr. Enrique','Aleixandre, Mr. Carlos','Alfeo, Mr. Salvatore'],
         'surname': ['ABELLA','ABJELINA','ABOU-YOUSSEFF','Aguilar Rico','Aleixandre','Alfeo'],
