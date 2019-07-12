@@ -40,9 +40,9 @@ def makeGsmResponse(req):
     # CONNECT TO S3 BUCKET AND GET DATAFRAME
     
     # boto3 import does not work, pending to solve.
-    # s3 = boto3.client('s3') 
-    # response = s3.list_buckets()
-    # print(response)
+    s3 = boto3.client('s3') 
+    response = s3.list_buckets()
+    print(response)
 
     gsmCsv = {'gsmName': ['ABELLA, Mr. Pablo','ABJELINA, Mr. Roy','ABOU-YOUSSEFF, Mr. Emad A.','Aguilar Rico, Mr. Enrique','Aleixandre, Mr. Carlos','Alfeo, Mr. Salvatore'],
         'surname': ['ABELLA','ABJELINA','ABOU-YOUSSEFF','Aguilar Rico','Aleixandre','Alfeo'],
