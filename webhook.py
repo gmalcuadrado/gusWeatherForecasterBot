@@ -52,14 +52,18 @@ def makeGsmResponse(req):
 
     df = pd.read_csv(obj['Body']) # 'Body' is a key word
 
-    print(df)
+    #print(df)
 
     resultSerie=df.loc[df['StaffID'] == staffNumber].annualLeavePending
     
+    print("resultSerie es: ", resultSerie)
+    print()
+    
     resultString=resultSerie.apply(str)
-
+    print("resultString es: ", resultString)
+    print()
+    
     pendingLeaves = resultString.split()[1]
-
     print("the days available are: ", pendingLeaves)
     
 
