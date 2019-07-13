@@ -54,7 +54,8 @@ def makeGsmResponse(req):
 
     print(df)
 
-    result=df.loc[df['StaffID'] == staffNumber]
+    result=df.loc[df['StaffID'] == staffNumber].annualLeavePending
+
 
     print("the result is: ",result)
     
