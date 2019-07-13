@@ -50,7 +50,7 @@ def makeGsmResponse(req):
     # get object and file (key) from bucket
     obj = s3.get_object(Bucket= bucket, Key= file_name) 
 
-    df = pd.read_csv(obj['Body']) # 'Body' is a key word
+    df = pd.read_csv(obj['Body'], keep_default_na=False, na_values=['_']) # 'Body' is a key word
 
     print(df)
 
