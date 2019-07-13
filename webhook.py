@@ -56,15 +56,18 @@ def makeGsmResponse(req):
 
     resultSerie=df.loc[df['StaffID'] == staffNumber].annualLeavePending
     
-    print("resultSerie es: ", resultSerie)
+    resultSplit=resultSerie.str.split()[1].tolist()
+
+
+    print("resultSplit es: ", resultSplit)
     print()
     
-    resultString=resultSerie.apply(str)
-    print("resultString es: ", resultString)
-    print()
+    #resultString=resultSerie.apply(str)
+    #print("resultString es: ", resultString)
+    #print()
     
-    pendingLeaves = resultString.split()[1]
-    print("the days available are: ", pendingLeaves)
+    #pendingLeaves = resultString.split()[1]
+    #print("the days available are: ", pendingLeaves)
     
 
     # ITERATE DATAFRAME SEARCHING STAFF NUMBER AND GET DAYS
@@ -72,7 +75,7 @@ def makeGsmResponse(req):
     # PREPARE AND RETURN RESPONSE
     
     
-    speech = "Staff number "+staffNumber+" has "+pendingLeaves+"days available"# generate speech responses for my Dialogflow agent
+    speech = "Staff number "+staffNumber+" has "+resultSplit+"days available"# generate speech responses for my Dialogflow agent
     
     return {'fulfillmentText': speech}
 
