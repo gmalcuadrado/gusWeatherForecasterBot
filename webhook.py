@@ -56,11 +56,6 @@ def makeGsmResponse(req):
 
     #result=df.loc[df['StaffID'] == staffNumber]
 
-    df.staffId
-
-    print("values of results is: ", result)
-
-
 
     
     '''
