@@ -54,11 +54,13 @@ def makeGsmResponse(req):
 
     print(df)
 
-    result=df.loc[df['StaffID'] == staffNumber].annualLeavePending.apply(str)
+    resultSerie=df.loc[df['StaffID'] == staffNumber].annualLeavePending
+    
+    resultString=resultSerie.apply(str)
 
-    pendingLeaves = result.split()[1]
+    pendingLeaves = resultString.split()[1]
 
-    print("the result is: ",result)
+    print("the days available are: ", pendingLeaves)
     
 
     # ITERATE DATAFRAME SEARCHING STAFF NUMBER AND GET DAYS
