@@ -56,31 +56,18 @@ def makeGsmResponse(req):
 
     result=df.loc[df['StaffID'] == staffNumber].annualLeavePending
 
+    pendingLeaves = result.split()[1]
 
     print("the result is: ",result)
     
-    '''
-    gsmCsv = {'gsmName': ['ABELLA, Mr. Pablo','ABJELINA, Mr. Roy','ABOU-YOUSSEFF, Mr. Emad A.','Aguilar Rico, Mr. Enrique','Aleixandre, Mr. Carlos','Alfeo, Mr. Salvatore'],
-        'surname': ['ABELLA','ABJELINA','ABOU-YOUSSEFF','Aguilar Rico','Aleixandre','Alfeo'],
-        'name': ['Pablo','Roy','Emad','Enrique','Carlos','Salvatore'],
-        'staffId': ['S206700','S206701','S206702','S206703','S206704','S206705'],
-        'annualLeaveConsumed': ['11','4','16','21','9','15'],
-        'annualLeavePending': ['15','22','10','5','17','11'],
-        'effectiveDate': ['31-10-2019','14-10-2019','14-05-2019','31-11-2019','17-12-2019','15-10-2019']
-        }
-
-    df = DataFrame (gsmCsv,columns= ['gsmName', 'Surname', 'Name', 'StaffID', 'annualLeaveConsumed', 'annualLeavePending', 'effectiveDate'])
-    
-    print (df)
-
-    '''
-
 
     # ITERATE DATAFRAME SEARCHING STAFF NUMBER AND GET DAYS
 
     # PREPARE AND RETURN RESPONSE
     
-    speech = "Number of days available for "+staffNumber+" are 42 " # generate speech responses for my Dialogflow agent
+    
+    speech = "Staff number "+staffNumber+" has "+pendingLeaves+"days available"# generate speech responses for my Dialogflow agent
+    
     return {'fulfillmentText': speech}
 
 
