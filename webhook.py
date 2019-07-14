@@ -67,7 +67,7 @@ def makeGsmResponse(req):
     print("annualLeaveDayInt = ", annualLeaveDayInt)
     print()
 
-    if (annualLeaveDayInt>=0):
+    if (annualLeaveDayInt.isdigit()):
         speech = "Staff number "+staffNumber+" has "+annualLeaveDayInt+" days available"# generate speech responses for my Dialogflow agent
 
     else:
