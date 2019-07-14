@@ -63,17 +63,18 @@ def makeGsmResponse(req):
     print("annualLeaveDayString = ", annualLeaveDayString)
     print()
     
-    annualLeaveDayInt=int(annualLeaveDayString)
-    print("annualLeaveDayInt = ", annualLeaveDayInt)
-    print()
-
-    if (annualLeaveDayInt.isdigit()):
+    try:
+        annualLeaveDayInt=int(annualLeaveDayString)
+        print("annualLeaveDayInt = ", annualLeaveDayInt)
+        print()
         speech = "Staff number "+staffNumber+" has "+annualLeaveDayInt+" days available"# generate speech responses for my Dialogflow agent
-
-    else:
+    except ValueError:
+        print("annualLeaveDayInt is not an integer = ", annualLeaveDayInt)
+        print()
         speech = "Sorry, I did not find data for Staff Number "+staffNumber
-    
-     # Return speech to DialogFlow
+
+  
+    # Return speech to DialogFlow
     return {'fulfillmentText': speech}
 
 
