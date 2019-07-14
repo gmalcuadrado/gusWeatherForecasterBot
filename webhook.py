@@ -67,7 +67,7 @@ def makeGsmResponse(req):
         annualLeaveDayInt=int(annualLeaveDayString)
         print("annualLeaveDayInt = ", annualLeaveDayInt)
         print()
-        speech = "Staff number "+staffNumber+" has "+annualLeaveDayInt+" days available"# generate speech responses for my Dialogflow agent
+        speech = "Staff number "+staffNumber+" has "+annualLeaveDayString+" days available"# generate speech responses for my Dialogflow agent, parameter must be string
     except ValueError:
         print("annualLeaveDayInt is not an integer = ", annualLeaveDayInt)
         print()
