@@ -30,6 +30,7 @@ def webhook(): # method app.route decorators create
 
 
 def makeGsmResponse(req):
+
     # GET RESPONSE PARAMETERS: STAFF NUMBER
 
     result = req.get("queryResult")
@@ -50,49 +51,21 @@ def makeGsmResponse(req):
     # get object and file (key) from bucket
     obj = s3.get_object(Bucket= bucket, Key= file_name) 
 
+    # Import CSV on Pandas dataframe
     df = pd.read_csv(obj['Body']) # 'Body' is a key word
 
     #print(df)
 
-    resultPandaSerie=df.loc[df['StaffID'] == staffNumber].annualLeavePending.to_string().split()[1]
+    # Get the days for the StaffNumber passed
+    annualLeaveDays=df.loc[df['StaffID'] == staffNumber].annualLeavePending.to_string().split()[1]
     
-
-
+    if (annualLeaveDays):
+        speech = "Staff number "+staffNumber+" has "+annualLeaveDays+" days available"# generate speech responses for my Dialogflow agent
+    else:
+        speech = "Sorry, I did not find data for Staff Number "+staffNumber
     
-    print("resultPandaSerie es: ", resultPandaSerie)
-    print("type de resultSerie es: ", type(resultPandaSerie))
-
-    #resultSplit=resultSerie.str.split()[1].tolist()
-
-
-    #print("resultSplit es: ", resultSplit)
-    print()
-    
-    #resultString=resultSerie.apply(str)
-    #print("resultString es: ", resultString)
-    #print()
-    
-    #pendingLeaves = resultString.split()[1]
-    #print("the days available are: ", pendingLeaves)
-    
-
-    # ITERATE DATAFRAME SEARCHING STAFF NUMBER AND GET DAYS
-
-    # PREPARE AND RETURN RESPONSE
-    
-    demo="14"
-
-    speech = "Staff number "+staffNumber+" has "+resultPandaSerie+" days available"# generate speech responses for my Dialogflow agent
-    
+     # Return speech to DialogFlow
     return {'fulfillmentText': speech}
-
-
-
-
-
-
-
-
 
 
 
@@ -148,6 +121,7 @@ def makeWeatherResponse(req):
     # print ('printing the speech') # For debugging
     # print (speech) # For debugging
     
+    # Return speech to DialogFlow
     return {'fulfillmentText': speech}
 
 
