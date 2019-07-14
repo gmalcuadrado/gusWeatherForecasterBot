@@ -55,9 +55,10 @@ def makeGsmResponse(req):
     #print(df)
 
     resultSerie=df.loc[df['StaffID'] == staffNumber].annualLeavePending
-    print("type de resultSerie es: "type(resultSerie))
+    
     print("resultSerie es: ", resultSerie)
-
+    print("type de resultSerie es: ", type(resultSerie))
+    
     #resultSplit=resultSerie.str.split()[1].tolist()
 
 
