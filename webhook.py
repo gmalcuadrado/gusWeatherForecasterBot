@@ -77,8 +77,9 @@ def makeGsmResponse(req):
 
     # PREPARE AND RETURN RESPONSE
     
-    
-    speech = "Staff number "+staffNumber+" has "+resultPandaSerie+"days available"# generate speech responses for my Dialogflow agent
+    demo="14"
+
+    speech = "Staff number "+staffNumber+" has "+demo+"days available"# generate speech responses for my Dialogflow agent
     
     return {'fulfillmentText': speech}
 
