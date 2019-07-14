@@ -54,10 +54,10 @@ def makeGsmResponse(req):
 
     #print(df)
 
-    resultPandaSerie=df.loc[df['StaffID'] == staffNumber].annualLeavePending
+    resultPandaSerie=df.loc[df['StaffID'] == staffNumber].annualLeavePending.to_string()
     
-    #print("resultPandaSerie es: ", resultPandaSerie)
-    #print("type de resultSerie es: ", type(resultPandaSerie))
+    print("resultPandaSerie es: ", resultPandaSerie)
+    print("type de resultSerie es: ", type(resultPandaSerie))
 
     #resultSplit=resultSerie.str.split()[1].tolist()
 
@@ -79,7 +79,7 @@ def makeGsmResponse(req):
     
     demo="14"
 
-    speech = "Staff number "+staffNumber+" has "+demo+"days available"# generate speech responses for my Dialogflow agent
+    speech = "Staff number "+staffNumber+" has "+resultPandaSerie+" days available"# generate speech responses for my Dialogflow agent
     
     return {'fulfillmentText': speech}
 
