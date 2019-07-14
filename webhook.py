@@ -45,7 +45,7 @@ def makeGsmResponse(req):
     
     s3 = boto3.client('s3') 
     response = s3.list_buckets()
-    print("S3 bucket response: ", response)
+    # print("S3 bucket response: ", response)
 
     # get object and file (key) from bucket
     obj = s3.get_object(Bucket= bucket, Key= file_name) 
@@ -55,11 +55,13 @@ def makeGsmResponse(req):
     #print(df)
 
     resultSerie=df.loc[df['StaffID'] == staffNumber].annualLeavePending
-    
-    resultSplit=resultSerie.str.split()[1].tolist()
+    type(resultSerie)
+    print("resultSerie es: ", resultSplit)
+
+    #resultSplit=resultSerie.str.split()[1].tolist()
 
 
-    print("resultSplit es: ", resultSplit)
+    #print("resultSplit es: ", resultSplit)
     print()
     
     #resultString=resultSerie.apply(str)
