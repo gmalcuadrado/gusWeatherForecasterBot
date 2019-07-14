@@ -57,10 +57,12 @@ def makeGsmResponse(req):
     #print(df)
 
     # Get the days for the StaffNumber passed
-    annualLeaveDays=df.loc[df['StaffID'] == staffNumber].annualLeavePending.to_string().split()[1]
-    
-    if (annualLeaveDays):
-        speech = "Staff number "+staffNumber+" has "+annualLeaveDays+" days available"# generate speech responses for my Dialogflow agent
+    annualLeaveDaysString=df.loc[df['StaffID'] == staffNumber].annualLeavePending.to_string().split()[1]
+
+    annualLeaveDaysInt=int(annualLeaveDaysString)
+
+    if (annualLeaveDaysInt>=0):
+        speech = "Staff number "+staffNumber+" has "+annualLeaveDaysInt+" days available"# generate speech responses for my Dialogflow agent
     else:
         speech = "Sorry, I did not find data for Staff Number "+staffNumber
     
