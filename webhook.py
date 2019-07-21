@@ -42,7 +42,7 @@ def makeGsmResponse(req):
     # CONNECT TO S3 BUCKET AND GET DATAFRAME
     
     bucket = "whochatbot"
-    file_name = "wernerj-Data.csv"
+    file_name = "GSM-EXPORT/wernerj-Data.csv"
 
     s3 = boto3.client('s3') 
     response = s3.list_buckets()
