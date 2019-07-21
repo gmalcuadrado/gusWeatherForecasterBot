@@ -54,7 +54,7 @@ def makeGsmResponse(req):
     file_name = "GSM-Export/wernerj-Data.csv"
     s3ConnectionObj = s3.get_connectionObjectect(Bucket= bucket, Key= file_name)
     print() # For debugging
-    print("s3 connection object: "s3ConnectionObj) # For debugging
+    print("s3 connection object: ", s3ConnectionObj) # For debugging
     print() # For debugging
 
     # Import CSV on Pandas dataframe
