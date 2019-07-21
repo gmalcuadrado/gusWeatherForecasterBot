@@ -41,13 +41,12 @@ def makeGsmResponse(req):
 
     # CONNECT TO S3 BUCKET AND GET DATAFRAME
     
-    # boto3 import does not work, pending to solve.
     bucket = "whochatbot"
     file_name = "wernerj-Data.csv"
 
     s3 = boto3.client('s3') 
     response = s3.list_buckets()
-    # print("S3 bucket response: ", response)
+    print("S3 bucket response: ", response)
 
     # get object and file (key) from bucket
     obj = s3.get_object(Bucket= bucket, Key= file_name) 
