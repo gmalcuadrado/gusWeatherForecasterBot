@@ -43,7 +43,7 @@ def makeGsmResponse(req):
     
     # boto3 import does not work, pending to solve.
     bucket = "whochatbot"
-    file_name = "whogsm.csv"
+    file_name = "wernerj-Data.csv"
 
     s3 = boto3.client('s3') 
     response = s3.list_buckets()
@@ -55,10 +55,10 @@ def makeGsmResponse(req):
     # Import CSV on Pandas dataframe
     df = pd.read_csv(obj['Body']) # 'Body' is a key word
 
-    #print(df) # For debugging
+    print(df) # For debugging
 
     # Get the days for the StaffNumber passed
-    annualLeaveDayString=df.loc[df['StaffID'] == staffNumber].annualLeavePending.to_string().split()[1]
+    annualLeaveDayString=df.loc[df['StaffID'] == staffNumber].RemainingLeave.to_string().split()[1]
     
     print() # For debugging
     print("annualLeaveDayString = ", annualLeaveDayString) # For debugging
