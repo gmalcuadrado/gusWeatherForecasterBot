@@ -44,21 +44,21 @@ def makeGsmResponse(req):
     # Conneting to Bucket
     s3 = boto3.client('s3') 
     response = s3.list_buckets()
+    print()
+    print("S3 bucket response: ", response)
+    print()
     
-    print() # For debugging
-    print("S3 bucket response: ", response) # For debugging
-    print() # For debugging
-
-    # Getting CSV file connectionObjectect from Bucket
+    # Getting CSV file object from Bucket
     bucket = "whochatbot"
     file_name = "GSM-Export/wernerj-Data.csv"
-    s3ConnectionObj = s3.get_connectionObjectect(Bucket= bucket, Key= file_name)
-    print() # For debugging
-    print("s3 connection object: ", s3ConnectionObj) # For debugging
-    print() # For debugging
+    s3ConnectionObj = s3.get_object(Bucket= bucket, Key= file_name)
+    print()
+    print("S3 connection object: ", s3ConnectionObj)
+    print()
 
     # Import CSV on Pandas dataframe
     df = pd.read_csv(s3ConnectionObj['Body']) # 'Body' is a key word
+
     print(df) # For debugging
 
     # Get the days for the StaffNumber passed
@@ -68,8 +68,9 @@ def makeGsmResponse(req):
     print("annualLeaveDayString = ", annualLeaveDayString) # For debugging
     print() # For debugging
     
+ 
 
-    # Generate response
+    # Generate resonse
     try:
         annualLeaveDayInt=int(annualLeaveDayString)
         print("annualLeaveDayInt = ", annualLeaveDayInt)
@@ -111,11 +112,11 @@ def makeWeatherResponse(req):
 
     # Call to Open Weather API and get response
     r=requests.get('https://api.openweathermap.org/data/2.5/forecast?q='+city+',us&appid=35918c9922e8cac62623e7a20694eecb')
-    json_connectionObjectect = r.json()
-    # print ('printing json openweathermap connectionObjectect') # Debugging
-    # print (json_connectionObjectect) # Debugging
+    json_object = r.json()
+    # print ('printing json openweathermap object') # Debugging
+    # print (json_object) # Debugging
 
-    weather=json_connectionObjectect['list']
+    weather=json_object['list']
     for i in range(0,30): # TODO: It should be something like len(weather):, not working
         if dateTimeFormated in weather[i]['dt_txt']:
             condition= weather[i]['weather'][0]['description']
