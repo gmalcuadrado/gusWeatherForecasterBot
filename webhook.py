@@ -49,7 +49,8 @@ def makeGsmResponse(req):
     # Getting CSV file object from Bucket
     bucket = "whochatbot"
     file_name = "GSM-Export/wernerj-Data.csv"
-    obj = s3.get_object(Bucket= bucket, Key= file_name) 
+    obj = s3.get_object(Bucket= bucket, Key= file_name)
+    print(obj)
 
     '''
     # Import CSV on Pandas dataframe
