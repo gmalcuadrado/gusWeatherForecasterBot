@@ -47,7 +47,9 @@ def makeGsmResponse(req):
     s3 = boto3.client('s3') 
     response = s3.list_buckets()
     print("S3 bucket response: ", response)
+    
 
+    '''
     # get object and file (key) from bucket
     obj = s3.get_object(Bucket= bucket, Key= file_name) 
 
@@ -63,6 +65,8 @@ def makeGsmResponse(req):
     print("annualLeaveDayString = ", annualLeaveDayString) # For debugging
     print() # For debugging
     
+    '''
+
     # Generate resonse
     try:
         annualLeaveDayInt=int(annualLeaveDayString)
