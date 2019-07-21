@@ -21,6 +21,7 @@ def webhook(): # method app.route decorators create
     result = req.get("queryResult") # TODO: Repeated req.get, pending to solve this
     parameters = result.get("parameters")
     
+    # Depending on parameter obtained, we solve GSM or Weather question
     if parameters.get("geo-city"):
         return make_response(jsonify(makeWeatherResponse(req))) # Debugging, return sample from https://www.pragnakalp.com/dialogflow-fulfillment-webhook-tutorial/
     else:
@@ -43,7 +44,7 @@ def makeGsmResponse(req):
     # boto3 import does not work, pending to solve.
     bucket = "whochatbot"
     file_name = "whogsm.csv"
-    
+
     s3 = boto3.client('s3') 
     response = s3.list_buckets()
     # print("S3 bucket response: ", response)
@@ -54,15 +55,16 @@ def makeGsmResponse(req):
     # Import CSV on Pandas dataframe
     df = pd.read_csv(obj['Body']) # 'Body' is a key word
 
-    #print(df)
+    #print(df) # For debugging
 
     # Get the days for the StaffNumber passed
     annualLeaveDayString=df.loc[df['StaffID'] == staffNumber].annualLeavePending.to_string().split()[1]
     
-    print()
-    print("annualLeaveDayString = ", annualLeaveDayString)
-    print()
+    print() # For debugging
+    print("annualLeaveDayString = ", annualLeaveDayString) # For debugging
+    print() # For debugging
     
+    # Generate resonse
     try:
         annualLeaveDayInt=int(annualLeaveDayString)
         print("annualLeaveDayInt = ", annualLeaveDayInt)
