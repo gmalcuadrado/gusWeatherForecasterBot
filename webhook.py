@@ -47,7 +47,7 @@ def makeGsmResponse(req):
     print()
     print("S3 bucket response: ", response)
     print()
-    
+
     # Getting CSV file object from Bucket
     bucket = "whochatbot"
     file_name = "GSM-Export/wernerj-Data.csv"
@@ -69,7 +69,6 @@ def makeGsmResponse(req):
     print() # For debugging
     
  
-
     # Generate resonse
     try:
         annualLeaveDayInt=int(annualLeaveDayString)
