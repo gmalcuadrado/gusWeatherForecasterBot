@@ -65,22 +65,20 @@ def makeGsmResponse(req):
 
     # Get the days for the StaffNumber passed
     remainingLeaveDayString=df.loc[df['StaffID'] == staffNumber].RemainingLeave.to_string().split()[1]
-    usedLeaveDayString=df.loc[df['StaffID'] == staffNumber].UsedLeave.to_string().split()[1]
-    gsmName=df.loc[df['StaffID'] == staffNumber].GSMName
+    usedLeaveDayInt=df.loc[df['StaffID'] == staffNumber].UsedLeave
+    gsmName=df.loc[df['StaffID'] == staffNumber].GSMName.split(None, 1)[1]
     
     print() # For debugging
     print("remainingLeaveDayString = ", remainingLeaveDayString) # For debugging
+    print("usedLeaveDayInt = ", usedLeaveDayInt)
+    print("GSM Name = ", gsmName)
     print() # For debugging
     
  
     # Generate response
     try:
-        remainingLeaveDayInt=int(remainingLeaveDayString)
-        usedLeaveDayInt=int(usedLeaveDayString)        
+        remainingLeaveDayInt=int(remainingLeaveDayString)              
         print("remainingLeaveDayInt = ", remainingLeaveDayInt)
-        print("usedLeaveDayInt = ", usedLeaveDayInt)
-        print("GSM Name = ", gsmName)
-
         speech = "Staff number "+gsmName+" has consumed "+usedLeaveDayInt+", and has "+remainingLeaveDayString+" days available"# generate speech responses for my Dialogflow agent, parameter must be string
     
     except ValueError:
