@@ -61,22 +61,30 @@ def makeGsmResponse(req):
 
     print(df) # For debugging
 
+    # EXTRACT INFO AND GENERATE RESPONSE 
+
     # Get the days for the StaffNumber passed
-    annualLeaveDayString=df.loc[df['StaffID'] == staffNumber].RemainingLeave.to_string().split()[1]
+    remainingLeaveDayString=df.loc[df['StaffID'] == staffNumber].RemainingLeave.to_string().split()[1]
+    usedLeaveDayString=df.loc[df['StaffID'] == staffNumber].usedLeave.to_string().split()[1]
+    gsmName=df.loc[df['StaffID'] == staffNumber].GSMName
     
     print() # For debugging
-    print("annualLeaveDayString = ", annualLeaveDayString) # For debugging
+    print("remainingLeaveDayString = ", remainingLeaveDayString) # For debugging
     print() # For debugging
     
  
-    # Generate resonse
+    # Generate response
     try:
-        annualLeaveDayInt=int(annualLeaveDayString)
-        print("annualLeaveDayInt = ", annualLeaveDayInt)
-        print()
-        speech = "Staff number "+staffNumber+" has "+annualLeaveDayString+" days available"# generate speech responses for my Dialogflow agent, parameter must be string
+        remainingLeaveDayInt=int(remainingLeaveDayString)
+        usedLeaveDayInt=int(usedLeaveDayString)        
+        print("remainingLeaveDayInt = ", remainingLeaveDayInt)
+        print("usedLeaveDayInt = ", usedLeaveDayInt)
+        print("GSM Name = ", gsmName)
+
+        speech = "Staff number "+gsmName+" has consumed "+usedLeaveDayInt+", and has "+remainingLeaveDayString+" days available"# generate speech responses for my Dialogflow agent, parameter must be string
+    
     except ValueError:
-        print("annualLeaveDayInt is not an integer = ", annualLeaveDayInt)
+        print("remainingLeaveDayInt is not an integer = ", remainingLeaveDayInt)
         print()
         speech = "Sorry, I did not find data for Staff Number "+staffNumber
 
