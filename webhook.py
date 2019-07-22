@@ -65,21 +65,24 @@ def makeGsmResponse(req):
 
     # Get the days for the StaffNumber passed
     remainingLeaveDayString=df.loc[df['StaffID'] == staffNumber].RemainingLeave.to_string().split()[1]
-    usedLeaveDayInt=df.loc[df['StaffID'] == staffNumber].UsedLeave
-    gsmName=df.loc[df['StaffID'] == staffNumber].GSMName.split(None, 1)[1]
+    usedLeaveDayIntString=df.loc[df['StaffID'] == staffNumber].UsedLeave.to_string().split()[1]
+    gsmName=df.loc[df['StaffID'] == staffNumber].GSMName.to_string().split(None, 1)[1]  
     
     print() # For debugging
     print("remainingLeaveDayString = ", remainingLeaveDayString) # For debugging
-    print("usedLeaveDayInt = ", usedLeaveDayInt)
+    print("usedLeaveDayIntString = ", usedLeaveDayIntString)
     print("GSM Name = ", gsmName)
     print() # For debugging
     
  
     # Generate response
     try:
+        # Why this Cast? to be sure that choose right cell?
         remainingLeaveDayInt=int(remainingLeaveDayString)              
         print("remainingLeaveDayInt = ", remainingLeaveDayInt)
-        speech = "Staff number "+gsmName+" has consumed "+usedLeaveDayInt+", and has "+remainingLeaveDayString+" days available"# generate speech responses for my Dialogflow agent, parameter must be string
+
+        # generate speech responses for my Dialogflow agent, parameter must be string
+        speech = "Staff number "+gsmName+" has consumed "+usedLeaveDayIntString+", and has "+remainingLeaveDayString+" days available"
     
     except ValueError:
         print("remainingLeaveDayInt is not an integer = ", remainingLeaveDayInt)
