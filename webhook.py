@@ -65,7 +65,7 @@ def makeGsmResponse(req):
 
     # Get the days for the StaffNumber passed
     remainingLeaveDayString=df.loc[df['StaffID'] == staffNumber].RemainingLeave.to_string().split()[1]
-    usedLeaveDayString=df.loc[df['StaffID'] == staffNumber].usedLeave.to_string().split()[1]
+    usedLeaveDayString=df.loc[df['StaffID'] == staffNumber].UsedLeave.to_string().split()[1]
     gsmName=df.loc[df['StaffID'] == staffNumber].GSMName
     
     print() # For debugging
