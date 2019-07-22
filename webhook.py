@@ -35,9 +35,9 @@ def makeGsmResponse(req):
 
     # GET RESPONSE PARAMETERS: STAFF NUMBER
 
-    result = req.get("queryResult")
-    parameters = result.get("parameters")
-    staffNumber = parameters.get("numberStaff")
+    #result = req.get("queryResult")
+    #parameters = result.get("parameters")
+    #staffNumber = parameters.get("numberStaff")
     print("printing staff number: ", staffNumber)
 
     # CONNECT TO S3 BUCKET AND GET DATAFRAME
@@ -65,9 +65,9 @@ def makeGsmResponse(req):
     # EXTRACT INFO AND GENERATE RESPONSE 
 
     # Get the days for the StaffNumber passed
-    remainingLeaveDayString=df.loc[df['StaffID'] == staffNumber].RemainingLeave.to_string().split()[1]
-    usedLeaveDayIntString=df.loc[df['StaffID'] == staffNumber].UsedLeave.to_string().split()[1]
-    gsmName=df.loc[df['StaffID'] == staffNumber].GSMName.to_string().split(None, 1)[1]  
+    remainingLeaveDayString=df.RemainingLeave.to_string().split()[1]
+    usedLeaveDayIntString=df.UsedLeave.to_string().split()[1]
+    gsmName=df.GSMName.to_string().split(None, 1)[1]
     
     print() # For debugging
     print("remainingLeaveDayString = ", remainingLeaveDayString) # For debugging
@@ -83,7 +83,7 @@ def makeGsmResponse(req):
         print("remainingLeaveDayInt = ", remainingLeaveDayInt)
 
         # generate speech responses for my Dialogflow agent, parameter must be string
-        speech = "Staff number "+gsmName+" has consumed "+usedLeaveDayIntString+", and has "+remainingLeaveDayString+" days available"
+        speech = "Dear "+gsmName+", you have consumed "+usedLeaveDayIntString+", and have "+remainingLeaveDayString+" days available"
     
     except ValueError:
         print("remainingLeaveDayInt is not an integer = ", remainingLeaveDayInt)
