@@ -38,7 +38,7 @@ def makeGsmResponse(req):
     #result = req.get("queryResult")
     #parameters = result.get("parameters")
     #staffNumber = parameters.get("numberStaff")
-    print("printing staff number: ", staffNumber)
+    #print("printing staff number: ", staffNumber)
 
     # CONNECT TO S3 BUCKET AND GET DATAFRAME
     
@@ -78,7 +78,7 @@ def makeGsmResponse(req):
  
     # Generate response
     try:
-        # Why this Cast? to be sure that choose right cell?
+        # This cast is to avoid passing non number value like ) #TODO: Improve this 
         remainingLeaveDayInt=int(remainingLeaveDayString)              
         print("remainingLeaveDayInt = ", remainingLeaveDayInt)
 
@@ -88,7 +88,7 @@ def makeGsmResponse(req):
     except ValueError:
         print("remainingLeaveDayInt is not an integer = ", remainingLeaveDayInt)
         print()
-        speech = "Sorry, I did not find data for Staff Number "+staffNumber
+        speech = "Sorry, I did not find data on GSM :S "
 
   
     # Return speech to DialogFlow
