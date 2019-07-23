@@ -29,7 +29,7 @@ def webhook(): # method app.route decorators create
     if parameters.get("geo-city"):
         return make_response(jsonify(makeWeatherResponse(req))) # Debugging, return sample from https://www.pragnakalp.com/dialogflow-fulfillment-webhook-tutorial/
 
-    elif parameters.get("leaveDay"):
+    elif parameters.get("amount"):
         return make_response(jsonify(makeWriteGsmResponse(req)))
 
     else:
@@ -45,7 +45,7 @@ def makeWriteGsmResponse(req):
     parameters = result.get("parameters")
     leaveDayRequestStr = parameters.get("leaveDay")
     
-    print('printing leaveDay =', leaveDay) # For debugging
+    print('printing leaveDay =', leaveDayRequestStr) # For debugging
 
 
     # Conneting to Bucket
@@ -61,7 +61,7 @@ def makeWriteGsmResponse(req):
     bucket = "whochatbot"
     pathFileReadName = "GSM-Export/wernerj-Data.csv"
     pathFileWriteName = "GSM-Import"
-    FileWriteName = "leaveREquest.csv"
+    FileWriteName = "leaveRequest.csv"
 
 
     s3ReadConnObj = s3.get_object(Bucket= bucket, Key= pathFileReadName)
@@ -266,6 +266,9 @@ def makeWeatherResponse(req):
     
     # Return speech to DialogFlow
     return {'fulfillmentText': speech}
+
+
+
 
 
 if __name__ == '__main__':
