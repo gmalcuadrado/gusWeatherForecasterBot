@@ -49,7 +49,7 @@ def makeWriteGsmResponse(req):
     # Obtaining parameters from Dialogflow request    
     result = req.get("queryResult")
     parameters = result.get("parameters")
-    leaveDayRequestStr = parameters.get("amount")
+    leaveDayRequestStr = parameters.get("number-integer")
     
     print('printing leaveDay =', leaveDayRequestStr) # For debugging
 
