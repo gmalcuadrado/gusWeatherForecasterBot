@@ -19,8 +19,10 @@ def webhook(): # method app.route decorators create
 
     # Parses the incoming JSON request data and print
     req = request.get_json(silent=True, force=True)
-    # print('Next printing the incoming JSON=') # For debugging
-    # print(json.dumps(req, indent=4)) # For debugging
+    print()
+    print('Next printing the incoming JSON=') # For debugging
+    print()
+    print(json.dumps(req, indent=4)) # For debugging
  
     result = req.get("queryResult") # TODO: Repeated req.get, pending to solve this
     parameters = result.get("parameters")
