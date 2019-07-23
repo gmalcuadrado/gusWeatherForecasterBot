@@ -38,7 +38,11 @@ def webhook(): # method app.route decorators create
 
 
 def makeWriteGsmResponse(req):
-    print("Function makeWriteGsmResponse")
+
+    print()
+    print("makeWriteGsmResponse function")
+    print()
+
 
     # Obtaining parameters from Dialogflow request    
     result = req.get("queryResult")
@@ -155,22 +159,27 @@ def makeWriteGsmResponse(req):
 
 
 def makeReadGsmResponse(req):
+    
+    print()
+    print("makeReadGsmResponse function")
+    print()
+
 
     # CONNECT TO S3 BUCKET AND GET DATAFRAME
     
     # Conneting to Bucket
     s3 = boto3.client('s3') 
     response = s3.list_buckets()
-    print()
-    print("S3 bucket response: ", response)
-    print()
+    #print()
+    #print("S3 bucket response: ", response)
+    #print()
 
     # Getting CSV file object from Bucket
     bucket = "whochatbot"
     file_name = "GSM-Export/wernerj-Data.csv"
     s3ConnReadObj = s3.get_object(Bucket= bucket, Key= file_name)
     print()
-    print("S3 connection object: ", s3ConnReadObj)
+    #print("S3 connection object: ", s3ConnReadObj)
     print()
 
     # Import CSV on Pandas dataframe
@@ -186,8 +195,8 @@ def makeReadGsmResponse(req):
     gsmName=df.GSMName.to_string().split(None, 1)[1]
     
     print() # For debugging
-    print("remainingLeaveDayString = ", remainingLeaveDayString) # For debugging
-    print("usedLeaveDayIntString = ", usedLeaveDayIntString)
+    #print("remainingLeaveDayString = ", remainingLeaveDayString) # For debugging
+    #print("usedLeaveDayIntString = ", usedLeaveDayIntString)
     print("GSM Name = ", gsmName)
     print() # For debugging
     
