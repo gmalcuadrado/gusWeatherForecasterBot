@@ -3,6 +3,9 @@ import os
 import requests
 import pandas as pd
 import boto3 # Amazon Web Services (AWS) SDK for Python. When I try to import it, ModuleNotFoundError: No module named 'boto3' and Python app does not work
+import botocore
+from botocore.exceptions import ClientError
+import logging
 
 
 # Flask is a lightweight Python framework for web applications that provides the basics for URL routing and page rendering. 
@@ -25,13 +28,133 @@ def webhook(): # method app.route decorators create
     # Depending on parameter obtained, we solve GSM or Weather question
     if parameters.get("geo-city"):
         return make_response(jsonify(makeWeatherResponse(req))) # Debugging, return sample from https://www.pragnakalp.com/dialogflow-fulfillment-webhook-tutorial/
+
+    elif parameters.get("leaveDay"):
+        return make_response(jsonify(makeWriteGsmResponse(req)))
+
     else:
-        print("gsm Python function")
-        return make_response(jsonify(makeGsmResponse(req)))
+        return make_response(jsonify(makeReadGsmResponse(req)))
 
 
 
-def makeGsmResponse(req):
+def makeWriteGsmResponse(req):
+    print("Function makeWriteGsmResponse")
+
+    # Obtaining parameters from Dialogflow request    
+    result = req.get("queryResult")
+    parameters = result.get("parameters")
+    leaveDayRequestStr = parameters.get("leaveDay")
+    
+    print('printing leaveDay =', leaveDay) # For debugging
+
+
+    # Conneting to Bucket
+    s3 = boto3.client('s3')
+    s3Resource=boto3.resource('s3')
+
+    response = s3.list_buckets()
+    print()
+    print("S3 bucket response: ", response)
+    print()
+
+    # CONNECT TO AMAZON S3 FILES
+    bucket = "whochatbot"
+    pathFileReadName = "GSM-Export/wernerj-Data.csv"
+    pathFileWriteName = "GSM-Import"
+    FileWriteName = "leaveREquest.csv"
+
+
+    s3ReadConnObj = s3.get_object(Bucket= bucket, Key= pathFileReadName)
+    #s3WriteConnObj = s3.get_object(Bucket= bucket, Key= pathFileWriteName) # File does not exist anymore!
+
+
+    print()
+    print("S3 read connection object: ", s3ReadConnObj)
+    print()
+
+    '''
+    # DOWNLOAD FILE
+
+    # The file disappeard this nigh!
+    try:
+        #s3.download_file('your_bucket','k.png','/Users/username/Desktop/k.png')
+        s3.download_fileobj('whochatbot','wernerj.csv','c:/temp/python/wernerj.csv')
+
+    except botocore.exceptions.ClientError as e:
+        if e.response['Error']['Code'] == "404":
+            print("The object does not exist.")
+        else:
+            raise
+
+    '''
+
+    # IMPORT CSV TO PANDA DATAFRAME
+
+    df = pd.read_csv(s3ReadConnObj['Body']) # 'Body' is a key word
+    print(df) # For debugging
+
+
+    # EXTRACT RELEVANT INFO FROM DATAFRAME
+
+    remainingLeaveDayStr=df.RemainingLeave.to_string().split()[1]
+    gsmName=df.GSMName.to_string().split(None, 1)[1]
+
+    print() # For debugging
+    print("Remaining days = ", remainingLeaveDayStr)
+    print("GSM Name = ", gsmName)
+    print() # For debugging
+
+
+    # Generate response
+    try:
+        # This cast is to avoid passing non number value like ) #TODO: Improve this 
+        leaveDayRequestInt=int(leaveDayRequestStr)
+        remainingLeaveDayInt=int(remainingLeaveDayStr)
+        print("leaveDayRequestInt = ", leaveDayRequestInt)
+        print("remainingLeaveDayInt = ", remainingLeaveDayInt)
+        print() # For debugging
+
+        if (remainingLeaveDayInt>=leaveDayRequestInt):
+            print("....insert line on CSV......")
+
+            # UPDATE LEAVE DAY VALUE TO LOCAL FILE
+
+            pathFile='c:\\temp\\python\\leaveREquest.csv' # TO CHANGE PATH ON HEROKU
+
+
+            with open(pathFile, 'w') as f:
+                f.write(leaveDayRequestStr)
+                f.close
+            
+            # UPLOAD THE FILE
+            try:
+                s3Resource.Object(bucket,'GSM-Import/leaveRequest.csv').upload_file(Filename=pathFile)
+            except botocore.exceptions.ClientError as e:           
+                print("Error saving the file")
+
+
+            # generate speech responses for my Dialogflow agent, parameter must be string
+            speech = "Dear "+gsmName+"; I have sent a leave request for "+leaveDayRequestStr+" days"
+            print(speech)
+        else:
+            speech = "Dear "+gsmName+"; you do not have enough days available ("+remainingLeaveDayStr+") for your request of "+leaveDayRequestStr+" days"
+            print(speech)
+
+
+        
+    except ValueError:
+        print("leaveDayRequestInt is not an integer = ", leaveDayRequestInt)
+        print()
+        speech = "Sorry, there was an issue :S "
+        print(speech)
+
+
+
+
+
+
+
+def makeReadGsmResponse(req):
 
     # CONNECT TO S3 BUCKET AND GET DATAFRAME
     
@@ -45,13 +168,13 @@ def makeGsmResponse(req):
     # Getting CSV file object from Bucket
     bucket = "whochatbot"
     file_name = "GSM-Export/wernerj-Data.csv"
-    s3ConnectionObj = s3.get_object(Bucket= bucket, Key= file_name)
+    s3ConnReadObj = s3.get_object(Bucket= bucket, Key= file_name)
     print()
-    print("S3 connection object: ", s3ConnectionObj)
+    print("S3 connection object: ", s3ConnReadObj)
     print()
 
     # Import CSV on Pandas dataframe
-    df = pd.read_csv(s3ConnectionObj['Body']) # 'Body' is a key word
+    df = pd.read_csv(s3ConnReadObj['Body']) # 'Body' is a key word
 
     print(df) # For debugging
 
@@ -92,8 +215,8 @@ def makeGsmResponse(req):
 
 
 def makeWeatherResponse(req):
-    # Obtaining parameters from Dialogflow request
-    
+
+    # Obtaining parameters from Dialogflow request    
     result = req.get("queryResult")
     parameters = result.get("parameters")
     city = parameters.get("geo-city")
