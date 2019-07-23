@@ -33,13 +33,6 @@ def webhook(): # method app.route decorators create
 
 def makeGsmResponse(req):
 
-    # GET RESPONSE PARAMETERS: STAFF NUMBER
-
-    #result = req.get("queryResult")
-    #parameters = result.get("parameters")
-    #staffNumber = parameters.get("numberStaff")
-    #print("printing staff number: ", staffNumber)
-
     # CONNECT TO S3 BUCKET AND GET DATAFRAME
     
     # Conneting to Bucket
@@ -83,7 +76,7 @@ def makeGsmResponse(req):
         print("remainingLeaveDayInt = ", remainingLeaveDayInt)
 
         # generate speech responses for my Dialogflow agent, parameter must be string
-        speech = "Dear "+gsmName+", you have consumed "+usedLeaveDayIntString+", and have "+remainingLeaveDayString+" days available"
+        speech = "My dear "+gsmName+", you have consumed "+usedLeaveDayIntString+", so you have "+remainingLeaveDayString+" days available"
     
     except ValueError:
         print("remainingLeaveDayInt is not an integer = ", remainingLeaveDayInt)
