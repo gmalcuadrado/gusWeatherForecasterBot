@@ -31,7 +31,7 @@ def webhook(): # method app.route decorators create
     if parameters.get("geo-city"):
         return make_response(jsonify(makeWeatherResponse(req))) # Debugging, return sample from https://www.pragnakalp.com/dialogflow-fulfillment-webhook-tutorial/
 
-    elif parameters.get("number-integer"):
+    elif parameters.get("duration"):
         return make_response(jsonify(makeWriteGsmResponse(req)))
 
     else:
@@ -49,7 +49,7 @@ def makeWriteGsmResponse(req):
     # Obtaining parameters from Dialogflow request    
     result = req.get("queryResult")
     parameters = result.get("parameters")
-    leaveDayRequestStr = parameters.get("number-integer")
+    leaveDayRequestStr = parameters.get("duration")
     
     print('printing leaveDay =', leaveDayRequestStr) # For debugging
 
