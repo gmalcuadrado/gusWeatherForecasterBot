@@ -76,32 +76,27 @@ def makeWriteGsmResponse(req):
     print("leaveDayRequestStr = ",leaveDayRequestStr)
     print()    
 
-
-
-
-    '''
-    # Conneting to Bucket
+ 
+    # Conneting AMAZON Bucket
     s3 = boto3.client('s3')
     s3Resource=boto3.resource('s3')
 
     response = s3.list_buckets()
     print()
-    print("S3 bucket response: ", response)
+    #print("S3 bucket response: ", response)
     print()
 
 
-    # CONNECT TO AMAZON S3 FILES
+    # CONNECT TO AMAZON S3 FILE TO OBTAIN USER NAME AND CURRENT DAYS AVAILABLE
     bucket = "whochatbot"
     pathFileReadName = "GSM-Export/wernerj-Data.csv"
     pathFileWriteName = "GSM-Import"
     FileWriteName = "leaveRequest.csv"
 
-
     s3ReadConnObj = s3.get_object(Bucket= bucket, Key= pathFileReadName)
 
-
     print()
-    print("S3 read connection object: ", s3ReadConnObj)
+    #print("S3 read connection object: ", s3ReadConnObj)
     print()
 
 
@@ -120,6 +115,9 @@ def makeWriteGsmResponse(req):
     print("Remaining days = ", remainingLeaveDayStr)
     print("GSM Name = ", gsmName)
     print() # For debugging
+
+
+'''
 
 
     try:
