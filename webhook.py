@@ -81,7 +81,7 @@ def makeWriteGsmResponse(req):
     s3 = boto3.client('s3')
     s3Resource=boto3.resource('s3')
 
-    response = s3.list_buckets()
+    #response = s3.list_buckets()
     print()
     #print("S3 bucket response: ", response)
     print()
@@ -139,14 +139,15 @@ def makeWriteGsmResponse(req):
     
     localPathFile='c:\\temp\\python\\wernerj.csv' # TO CHANGE PATH ON HEROKU
 
-    if (leaveDayRequestInt):
+    if (leaveDayRequestInt>remainingLeaveDayInt):
         
         print("....insert line on CSV......")
         print()
 
         # Inser line in Amazon file
         with open(localPathFile, 'w') as f:
-            f.write("Absence Type,Absence Status,Absence Reason,Start Date,End Date")
+            f.write("""Absence Type,Absence Status,Absence Reason,Start Date,End Date
+            Annual Leave,Planned,Annual Leave - Personal Reasons,5-Dec-19,6-Dec-19""")
             f.close
             
         # UPLOAD THE FILE
