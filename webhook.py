@@ -1,15 +1,13 @@
-import json # Parses JSON into a Python dictionary or list. 
+import json
 import os
 import requests
 import pandas as pd
-import boto3 # Amazon Web Services (AWS) SDK for Python. When I try to import it, ModuleNotFoundError: No module named 'boto3' and Python app does not work
+import boto3
 import botocore
 from botocore.exceptions import ClientError
 import logging
-
-
-# Flask is a lightweight Python framework for web applications that provides the basics for URL routing and page rendering. 
 from flask import Flask, jsonify, request, make_response
+
 
 # Flask app should start in global layout
 app = Flask(__name__)
@@ -31,7 +29,8 @@ def webhook(): # method app.route decorators create
     if parameters.get("geo-city"):
         return make_response(jsonify(makeWeatherResponse(req))) # Debugging, return sample from https://www.pragnakalp.com/dialogflow-fulfillment-webhook-tutorial/
 
-    elif parameters.get("leaveRequestKey" or "leaveRequestKey.original" or "duration" or "duration.original" or "duration" or "amount"):
+    elif parameters.get("date.original"):
+        write("date.original parameter obteined: ", date.original)
         return make_response(jsonify(makeWriteGsmResponse(req)))
 
     else:
