@@ -117,19 +117,18 @@ def makeWriteGsmResponse(req):
     print() # For debugging
 
 
-'''
-
+    # CHECKS IF USER IS REQUESTING MORE DAYS THAN AVAILABLE
 
     try:
         leaveDayRequestInt=int(leaveDayRequestStr)
-        remainingLeaveDayInt=int(remainingLeaveDayStr)
+        leaveDateRequestInt=int(leaveDateRequestStr)
 
         print("leaveDayRequestInt = ", leaveDayRequestInt)
-        print("remainingLeaveDayInt = ", remainingLeaveDayInt)
+        print("leaveDateRequestInt = ", leaveDateRequestInt)
         print() # For debugging
 
     except Exception:
-        print("leaveDayRequestInt or remainingLeaveDayInt is not an integer = ", leaveDayRequestInt, remainingLeaveDayInt)
+        print("leaveDayRequestInt = "+leaveDayRequestInt+ " or leaveDateRequestInt = "+leaveDateRequestInt+" is not an integer")
         print()
         speech = "Sorry, there was an issue converting parameters to integer"
         return {'fulfillmentText': speech}
@@ -137,22 +136,22 @@ def makeWriteGsmResponse(req):
         
 
     # Generate response
- 
-    if (remainingLeaveDayInt>=leaveDayRequestInt):
+    
+    localPathFile='c:\\temp\\python\\wernerj.csv' # TO CHANGE PATH ON HEROKU
+
+    if (leaveDateRequestInt>=leaveDayRequestInt):
+        
         print("....insert line on CSV......")
+        print()
 
-        # UPDATE LEAVE DAY VALUE TO LOCAL FILE
-
-        pathFile='c:\\temp\\python\\leaveREquest.csv' # TO CHANGE PATH ON HEROKU
-
-
-        with open(pathFile, 'w') as f:
-            f.write(leaveDayRequestStr)
+        # Inser line in Amazon file
+        with open(localPathFile, 'w') as f:
+            f.write("Absence Type,Absence Status,Absence Reason,Start Date,End Date")
             f.close
             
         # UPLOAD THE FILE
         try:
-            s3Resource.Object(bucket,'GSM-Import/leaveRequest.csv').upload_file(Filename=pathFile)
+            s3Resource.Object(bucket,'GSM-Import/wernerj.csv').upload_file(Filename=localPathFile)
 
         except Exception:           
             print("Error saving the file")
@@ -171,10 +170,6 @@ def makeWriteGsmResponse(req):
 
     # Return speech to DialogFlow
     return {'fulfillmentText': speech}
-
-'''
-
-
 
 
 
@@ -224,14 +219,14 @@ def makeReadGsmResponse(req):
     # Generate response
     try:
         # This cast is to avoid passing non number value like ) #TODO: Improve this 
-        remainingLeaveDayInt=int(remainingLeaveDayString)              
-        print("remainingLeaveDayInt = ", remainingLeaveDayInt)
+        leaveDateRequestInt=int(remainingLeaveDayString)              
+        print("leaveDateRequestInt = ", leaveDateRequestInt)
 
         # generate speech responses for my Dialogflow agent, parameter must be string
         speech = "Dear "+gsmName+"; you have consumed "+usedLeaveDayIntString+" days, so you still have "+remainingLeaveDayString+" days available"
     
     except ValueError:
-        print("remainingLeaveDayInt is not an integer = ", remainingLeaveDayInt)
+        print("leaveDateRequestInt is not an integer = ", leaveDateRequestInt)
         print()
         speech = "Sorry, I did not find data on GSM :S "
 
