@@ -77,7 +77,7 @@ def makeWriteGsmResponse(req):
     leaveDayRequestStr = json.dumps(leaveDateRequestUnformat) # Convert dictionary object into string
     print("Content leaveDayRequestStr after json.dumps:",leaveDayRequestStr)
 
-    leaveDayRequestStr = leaveDayRequestStr.split(" ")[1].split(".")[0]
+    leaveDayRequestStr = leaveDayRequestStr.split(" ")[2].split(".")[0]
     print("leaveDayRequestStr = ",leaveDayRequestStr)
     
 
