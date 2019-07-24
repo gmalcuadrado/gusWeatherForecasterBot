@@ -58,6 +58,7 @@ def makeWriteGsmResponse(req):
 
     leaveDayRequestUnformat = parameters.get("duration")
     leaveDateRequestUnformat = parameters.get("date")
+    type(leaveDayRequestUnformat)
 
     print()
     print("leaveDayRequestUnformat: ", leaveDayRequestUnformat)
