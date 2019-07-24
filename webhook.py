@@ -121,14 +121,14 @@ def makeWriteGsmResponse(req):
 
     try:
         leaveDayRequestInt=int(leaveDayRequestStr)
-        leaveDateRequestInt=int(leaveDateRequestStr)
+        remainingLeaveDayInt=int(remainingLeaveDayStr)
 
         print("leaveDayRequestInt = ", leaveDayRequestInt)
-        print("leaveDateRequestInt = ", leaveDateRequestInt)
+        print("remainingLeaveDayInt = ", remainingLeaveDayInt)
         print() # For debugging
 
     except Exception:
-        print("leaveDayRequestInt = "+leaveDayRequestInt+ " or leaveDateRequestInt = "+leaveDateRequestInt+" is not an integer")
+        print("leaveDayRequestInt = "+leaveDayRequestInt+ " or remainingLeaveDayInt = "+leaveDateRequestInt+" is not an integer")
         print()
         speech = "Sorry, there was an issue converting parameters to integer"
         return {'fulfillmentText': speech}
