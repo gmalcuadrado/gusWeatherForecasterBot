@@ -157,8 +157,7 @@ def makeWriteGsmResponse(req):
 
         # Inser line in Amazon file
         with open(localPathFile, 'w') as f:
-            f.write("""Absence Type,Absence Status,Absence Reason,Start Date,End Date
-            Annual Leave,Planned,Annual Leave - Personal Reasons,5-Dec-19,6-Dec-19""")
+            f.write(csvTxtContent)
             f.close
             
         # UPLOAD THE FILE
