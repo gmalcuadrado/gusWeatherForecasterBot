@@ -66,6 +66,7 @@ def makeWriteGsmResponse(req):
 
     # FORMATTING OUTPUT PARAMETERS
 
+    leaveDayRequestStr = json.dumps(leaveDateRequestUnformat)
     leaveDayRequestStr = leaveDayRequestUnformat.split(" ")[1].split(".")[0]
     
     # Formatting date
