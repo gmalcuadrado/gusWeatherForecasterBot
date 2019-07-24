@@ -58,7 +58,7 @@ def makeWriteGsmResponse(req):
 
     leaveDayRequestUnformat = parameters.get("duration")
     leaveDateRequestUnformat = parameters.get("date")
-    type(leaveDayRequestUnformat)
+    
 
     print()
     print("leaveDayRequestUnformat: ", leaveDayRequestUnformat)
@@ -66,7 +66,9 @@ def makeWriteGsmResponse(req):
 
     # FORMATTING OUTPUT PARAMETERS
 
+    # Formatting leave days
     leaveDayRequestStr = json.dumps(leaveDateRequestUnformat) # Convert dictionary object into string
+    print("Type leaveDayRequestStr after json.dumps: ", type(leaveDayRequestStr))
     leaveDayRequestStr = leaveDayRequestStr.split(" ")[1].split(".")[0]
     
     # Formatting date
