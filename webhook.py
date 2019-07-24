@@ -131,7 +131,7 @@ def makeWriteGsmResponse(req):
         print() # For debugging
 
     except Exception:
-        print("leaveDayRequestInt = "+leaveDayRequestInt+ " or remainingLeaveDayInt = "+leaveDateRremainingLeaveDayIntequestInt+" is not an integer")
+        print("leaveDayRequestInt = "+leaveDayRequestInt+ " or remainingLeaveDayInt = "+remainingLeaveDayInt+" is not an integer")
         print()
         speech = "Sorry, there was an issue converting parameters to integer"
         return {'fulfillmentText': speech}
@@ -146,8 +146,9 @@ def makeWriteGsmResponse(req):
 
         # Calculating Start Date and End Date 
         startDate=datetime.datetime.strptime(leaveDateRequestStr, '%Y-%m-%d')
-        "{:%d-%b-%Y}".format(startDate)
         endDate=startDate + datetime.timedelta(days=leaveDayRequestInt)
+        startDateStr="{:%d-%b-%Y}".format(startDate)
+        endDateStr="{:%d-%b-%Y}".format(endDate)
         
         print("....insert line on CSV......")
         print()
