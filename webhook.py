@@ -139,7 +139,7 @@ def makeWriteGsmResponse(req):
     
     localPathFile='c:\\temp\\python\\wernerj.csv' # TO CHANGE PATH ON HEROKU
 
-    if (leaveDayRequestInt>remainingLeaveDayInt):
+    if (remainingLeaveDayInt>=leaveDayRequestInt):
         
         print("....insert line on CSV......")
         print()
@@ -160,14 +160,11 @@ def makeWriteGsmResponse(req):
             return {'fulfillmentText': speech}
             sys.exit(1)
 
-
         # generate speech responses for my Dialogflow agent, parameter must be string
-        speech = "Dear "+gsmName+"; I have sent a leave request for "+leaveDayRequestStr+" days"
-        print(speech)
+        speech = "Dear "+gsmName+"; I have sent a leave request to GSM for "+leaveDayRequestStr+" days"
+
     else:
         speech = "Dear "+gsmName+"; you do not have enough days available ("+remainingLeaveDayStr+") for your request of "+leaveDayRequestStr+" days"
-        print(speech)
-
 
     # Return speech to DialogFlow
     return {'fulfillmentText': speech}
