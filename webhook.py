@@ -120,7 +120,7 @@ def makeWriteGsmResponse(req):
         print("remainingLeaveDayInt = ", remainingLeaveDayInt)
         print() # For debugging
 
-    except Exception e:
+    except Exception, e:
         print("leaveDayRequestInt or remainingLeaveDayInt is not an integer = ", leaveDayRequestInt, remainingLeaveDayInt)
         print()
         speech = "Sorry, there was an issue converting parameters to integer"
@@ -145,8 +145,8 @@ def makeWriteGsmResponse(req):
         # UPLOAD THE FILE
         try:
             s3Resource.Object(bucket,'GSM-Import/leaveRequest.csv').upload_file(Filename=pathFile)
-            
-        except Exception e:           
+
+        except Exception, e:           
             print("Error saving the file")
             speech = "Sorry, there was an issue opening Amazon S3 file to make the leave request"
             return {'fulfillmentText': speech}
