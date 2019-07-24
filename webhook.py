@@ -128,7 +128,7 @@ def makeWriteGsmResponse(req):
         print() # For debugging
 
     except Exception:
-        print("leaveDayRequestInt = "+leaveDayRequestInt+ " or remainingLeaveDayInt = "+remainingLeaveDayInt+" is not an integer")
+        print("leaveDayRequestInt = "+leaveDayRequestInt+ " or remainingLeaveDayInt = "+leaveDateRremainingLeaveDayIntequestInt+" is not an integer")
         print()
         speech = "Sorry, there was an issue converting parameters to integer"
         return {'fulfillmentText': speech}
@@ -139,7 +139,7 @@ def makeWriteGsmResponse(req):
     
     localPathFile='c:\\temp\\python\\wernerj.csv' # TO CHANGE PATH ON HEROKU
 
-    if (leaveDateRequestInt>=leaveDayRequestInt):
+    if (leaveDayRequestInt):
         
         print("....insert line on CSV......")
         print()
