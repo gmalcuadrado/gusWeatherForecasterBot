@@ -7,6 +7,7 @@ import botocore
 from botocore.exceptions import ClientError
 import logging
 from flask import Flask, jsonify, request, make_response
+import datetime
 
 
 # Flask app should start in global layout
@@ -62,12 +63,14 @@ def makeWriteGsmResponse(req):
 
     # FORMATTING OUTPUT PARAMETERS
 
-    # Formatting date
+    # Formatting date leave request
     dateTimeFormated = str(leaveDateRequestUnformat)  
     dateTimeFormated = dateTimeFormated.replace("T", " ")
     dateTimeFormated = dateTimeFormated.split("+")[0]
     leaveDateRequestStr = dateTimeFormated.split(" ")[0]
     print("leaveDateRequestStr = ",leaveDateRequestStr)
+
+    
     print()
 
     # Formatting leave days
@@ -140,9 +143,17 @@ def makeWriteGsmResponse(req):
     localPathFile='c:\\temp\\python\\wernerj.csv' # TO CHANGE PATH ON HEROKU
 
     if (remainingLeaveDayInt>=leaveDayRequestInt):
+
+        # Calculating Start Date and End Date 
+        startDate=datetime.datetime.strptime(leaveDateRequestStr, '%Y-%m-%d')
+        "{:%d-%b-%Y}".format(startDate)
+        endDate=startDate + datetime.timedelta(days=leaveDayRequestInt)
         
         print("....insert line on CSV......")
         print()
+
+        csvTxtContent="Absence Type,Absence Status,Absence Reason,Start Date,End Date/nAnnual Leave,Planned,Annual Leave - Personal Reasons,"+startDate+","+endDate"
+
 
         # Inser line in Amazon file
         with open(localPathFile, 'w') as f:
