@@ -50,6 +50,7 @@ def makeWriteGsmResponse(req):
     result = req.get("queryResult")
     parameters = result.get("parameters")
     leaveDayRequestStr = parameters.get("amount")
+
     
     print('printing leaveDay =', leaveDayRequestStr) # For debugging
 
@@ -111,48 +112,57 @@ def makeWriteGsmResponse(req):
     print() # For debugging
 
 
-    # Generate response
     try:
-        # This cast is to avoid passing non number value like ) #TODO: Improve this 
         leaveDayRequestInt=int(leaveDayRequestStr)
         remainingLeaveDayInt=int(remainingLeaveDayStr)
+
         print("leaveDayRequestInt = ", leaveDayRequestInt)
         print("remainingLeaveDayInt = ", remainingLeaveDayInt)
         print() # For debugging
 
-        if (remainingLeaveDayInt>=leaveDayRequestInt):
-            print("....insert line on CSV......")
-
-            # UPDATE LEAVE DAY VALUE TO LOCAL FILE
-
-            pathFile='c:\\temp\\python\\leaveREquest.csv' # TO CHANGE PATH ON HEROKU
-
-
-            with open(pathFile, 'w') as f:
-                f.write(leaveDayRequestStr)
-                f.close
-            
-            # UPLOAD THE FILE
-            try:
-                s3Resource.Object(bucket,'GSM-Import/leaveRequest.csv').upload_file(Filename=pathFile)
-            except botocore.exceptions.ClientError as e:           
-                print("Error saving the file")
-
-
-            # generate speech responses for my Dialogflow agent, parameter must be string
-            speech = "Dear "+gsmName+"; I have sent a leave request for "+leaveDayRequestStr+" days"
-            print(speech)
-        else:
-            speech = "Dear "+gsmName+"; you do not have enough days available ("+remainingLeaveDayStr+") for your request of "+leaveDayRequestStr+" days"
-            print(speech)
-
-
-        
-    except ValueError:
-        print("leaveDayRequestInt is not an integer = ", leaveDayRequestInt)
+    except Exception e:
+        print("leaveDayRequestInt or remainingLeaveDayInt is not an integer = ", leaveDayRequestInt, remainingLeaveDayInt)
         print()
-        speech = "Sorry, there was an issue :S "
+        speech = "Sorry, there was an issue converting parameters to integer"
+        return {'fulfillmentText': speech}
+        sys.exit(1)
+        
+
+    # Generate response
+ 
+    if (remainingLeaveDayInt>=leaveDayRequestInt):
+        print("....insert line on CSV......")
+
+        # UPDATE LEAVE DAY VALUE TO LOCAL FILE
+
+        pathFile='c:\\temp\\python\\leaveREquest.csv' # TO CHANGE PATH ON HEROKU
+
+
+        with open(pathFile, 'w') as f:
+            f.write(leaveDayRequestStr)
+            f.close
+            
+        # UPLOAD THE FILE
+        try:
+            s3Resource.Object(bucket,'GSM-Import/leaveRequest.csv').upload_file(Filename=pathFile)
+            
+        except Exception e:           
+            print("Error saving the file")
+            speech = "Sorry, there was an issue opening Amazon S3 file to make the leave request"
+            return {'fulfillmentText': speech}
+            sys.exit(1)
+
+
+        # generate speech responses for my Dialogflow agent, parameter must be string
+        speech = "Dear "+gsmName+"; I have sent a leave request for "+leaveDayRequestStr+" days"
         print(speech)
+    else:
+        speech = "Dear "+gsmName+"; you do not have enough days available ("+remainingLeaveDayStr+") for your request of "+leaveDayRequestStr+" days"
+        print(speech)
+
+
+    # Return speech to DialogFlow
+    return {'fulfillmentText': speech}
 
 
 
