@@ -128,7 +128,7 @@ def makeWriteGsmResponse(req):
         print() # For debugging
 
     except Exception:
-        print("leaveDayRequestInt = "+leaveDayRequestInt+ " or remainingLeaveDayInt = "+leaveDateRequestInt+" is not an integer")
+        print("leaveDayRequestInt = "+leaveDayRequestInt+ " or remainingLeaveDayInt = "+remainingLeaveDayInt+" is not an integer")
         print()
         speech = "Sorry, there was an issue converting parameters to integer"
         return {'fulfillmentText': speech}
