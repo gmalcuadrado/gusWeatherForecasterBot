@@ -26,7 +26,7 @@ def webhook(): # method app.route decorators create
     parameters = result.get("parameters")
     
     # Depending on parameter obtained, we solve GSM or Weather question
-    if parameters.get("geo-city"):
+    if parameters.get("unit"):
         return make_response(jsonify(makeWeatherResponse(req))) # Debugging, return sample from https://www.pragnakalp.com/dialogflow-fulfillment-webhook-tutorial/
 
     elif parameters.get("date.original"):
