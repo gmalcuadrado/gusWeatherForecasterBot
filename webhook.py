@@ -220,7 +220,7 @@ def makeReadGsmResponse(req):
         print("remainingLeaveDayInt = ", remainingLeaveDayInt)
 
         # generate speech responses for my Dialogflow agent, parameter must be string
-        speech = "My dear "+gsmName+", you have consumed "+usedLeaveDayIntString+", so you have "+remainingLeaveDayString+" days available"
+        speech = "Dear "+gsmName+"; you have consumed "+usedLeaveDayIntString+" days, so you have "+remainingLeaveDayString+" days available"
     
     except ValueError:
         print("remainingLeaveDayInt is not an integer = ", remainingLeaveDayInt)
