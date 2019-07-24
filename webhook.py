@@ -71,8 +71,8 @@ def makeWriteGsmResponse(req):
     print()
 
     # Formatting leave days
-    leaveDayRequestStr = json.dumps(leaveDateRequestUnformat) # Convert dictionary object into string
-    leaveDayRequestStr = leaveDayRequestStr.split(" ")#[2].split(".")[0]
+    leaveDayRequestStr = json.dumps(leaveDayRequestUnformat) # Convert dictionary object into string
+    leaveDayRequestStr = leaveDayRequestStr.split(" ")[1].split(".")[0]
     print("leaveDayRequestStr = ",leaveDayRequestStr)
     print()    
 
@@ -98,7 +98,6 @@ def makeWriteGsmResponse(req):
 
 
     s3ReadConnObj = s3.get_object(Bucket= bucket, Key= pathFileReadName)
-    #s3WriteConnObj = s3.get_object(Bucket= bucket, Key= pathFileWriteName) # File does not exist anymore!
 
 
     print()
