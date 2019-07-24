@@ -50,7 +50,7 @@ def makeWriteGsmResponse(req):
     print()
 
 
-    # Obtaining parameters from Dialogflow request    
+    # GET PARAMETERS FROM DIALOGFLOW JSON
     result = req.get("queryResult")
     parameters = result.get("parameters")
 
@@ -64,9 +64,23 @@ def makeWriteGsmResponse(req):
     print("leaveDayRequestUnformat: ", leaveDayRequestUnformat)
     print("leaveDateRequestUnformat: ", leaveDateRequestUnformat)
 
-    
-    
+    # FORMATTING OUTPUT PARAMETERS
 
+    leaveDayRequestStr = leaveDayRequestUnformat.split(" ")[1].split(".")[0]
+    
+    # Formatting date
+    dateTimeFormated = str(leaveDateRequestUnformat)  
+    dateTimeFormated = dateTimeFormated.replace("T", " ")
+    dateTimeFormated = dateTimeFormated.split("+")[0]
+    leaveDateRequestStr = dateTimeFormated.split(" ")[0]
+    
+    print("leaveDayRequestStr = ",leaveDayRequestStr)
+    print("leaveDateRequestStr = ",leaveDateRequestStr)
+
+
+
+
+    '''
     # Conneting to Bucket
     s3 = boto3.client('s3')
     s3Resource=boto3.resource('s3')
@@ -76,7 +90,6 @@ def makeWriteGsmResponse(req):
     print("S3 bucket response: ", response)
     print()
 
-    '''
 
     # CONNECT TO AMAZON S3 FILES
     bucket = "whochatbot"
