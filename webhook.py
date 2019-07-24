@@ -53,11 +53,18 @@ def makeWriteGsmResponse(req):
     # Obtaining parameters from Dialogflow request    
     result = req.get("queryResult")
     parameters = result.get("parameters")
-    leaveDayRequestStr = parameters.get("amount")
+
+    # Parameter output {'date': '2019-09-02T12:00:00+02:00', 'duration': {'amount': 15.0, 'unit': 'day'}}
+
+    leaveDayRequestUnformat = parameters.get("duration")
+    leaveDateRequestUnformat = parameters.get("date")
+
+    print()
+    print("leaveDayRequestUnformat: ", leaveDayRequestUnformat)
+    print("leaveDateRequestUnformat: ", leaveDateRequestUnformat)
 
     
-    print('printing leaveDay =', leaveDayRequestStr) # For debugging
-
+    
 
     # Conneting to Bucket
     s3 = boto3.client('s3')
@@ -67,6 +74,8 @@ def makeWriteGsmResponse(req):
     print()
     print("S3 bucket response: ", response)
     print()
+
+    '''
 
     # CONNECT TO AMAZON S3 FILES
     bucket = "whochatbot"
@@ -83,21 +92,6 @@ def makeWriteGsmResponse(req):
     print("S3 read connection object: ", s3ReadConnObj)
     print()
 
-    '''
-    # DOWNLOAD FILE
-
-    # The file disappeard this nigh!
-    try:
-        #s3.download_file('your_bucket','k.png','/Users/username/Desktop/k.png')
-        s3.download_fileobj('whochatbot','wernerj.csv','c:/temp/python/wernerj.csv')
-
-    except botocore.exceptions.ClientError as e:
-        if e.response['Error']['Code'] == "404":
-            print("The object does not exist.")
-        else:
-            raise
-
-    '''
 
     # IMPORT CSV TO PANDA DATAFRAME
 
@@ -168,7 +162,7 @@ def makeWriteGsmResponse(req):
     # Return speech to DialogFlow
     return {'fulfillmentText': speech}
 
-
+'''
 
 
 
@@ -224,7 +218,7 @@ def makeReadGsmResponse(req):
         print("remainingLeaveDayInt = ", remainingLeaveDayInt)
 
         # generate speech responses for my Dialogflow agent, parameter must be string
-        speech = "Dear "+gsmName+"; you have consumed "+usedLeaveDayIntString+" days, so you have "+remainingLeaveDayString+" days available"
+        speech = "Dear "+gsmName+"; you have consumed "+usedLeaveDayIntString+" days, so you still have "+remainingLeaveDayString+" days available"
     
     except ValueError:
         print("remainingLeaveDayInt is not an integer = ", remainingLeaveDayInt)
