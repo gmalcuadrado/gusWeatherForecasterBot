@@ -153,7 +153,7 @@ def makeWriteGsmResponse(req):
         print("....insert line on CSV......")
         print()
 
-        csvTxtContent=='''Absence Type,Absence Status,Absence Reason,Start Date,End Date
+        csvTxtContent='''Absence Type,Absence Status,Absence Reason,Start Date,End Date
                         Annual Leave,Planned,Annual Leave - Personal Reasons,{startDateStr},{endDateStr}'''.format(startDateStr='startDateStr', endDateStr='endDateStr')
 
         # Inser line in Amazon file
