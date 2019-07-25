@@ -161,7 +161,7 @@ Annual Leave,Planned,Annual Leave - Personal Reasons,{param1},{param2}'''.format
             f.write(csvTxtContent)
             f.close
             
-        # UPLOAD THE FILE
+        # UPLOAD THE FILE 
         try:
             s3Resource.Object(bucket,'GSM-Import/wernerj.csv').upload_file(Filename=localPathFile)
 
