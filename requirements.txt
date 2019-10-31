@@ -1,4 +1,4 @@
-Flask==0.12.2
+Flask==1.0
 Requests==2.18.4
 pandas==0.24.2
 boto3==1.9.186
